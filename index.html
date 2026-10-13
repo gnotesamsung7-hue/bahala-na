@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#161b22">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='88'%3E%F0%9F%8E%A4%3C/text%3E%3C/svg%3E">
+<title>Mark's Bahala Na! Barangay Survival</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Bricolage+Grotesque:opsz,wght@12..96,400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#e8efe6; --surface:#fafcf7; --surface2:#d9e4d4; --ink:#1d2731; --dim:#55646b;
+  --line:#b6c6b0; --gold:#a16c00; --danger:#c5341f; --ok:#2c7a3a; --school:#a16c00;
+  --display:'Lilita One','Arial Rounded MT Bold','Trebuchet MS',system-ui,sans-serif;
+  --body:'Bricolage Grotesque','Segoe UI',Roboto,system-ui,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161b22; --surface:#1f2630; --surface2:#29323e; --ink:#f0ead6; --dim:#9aa4ad;
+    --line:#36414e; --gold:#ffc93c; --danger:#ff6b57; --ok:#7ed37a; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161b22; --surface:#1f2630; --surface2:#29323e; --ink:#f0ead6; --dim:#9aa4ad;
+  --line:#36414e; --gold:#ffc93c; --danger:#ff6b57; --ok:#7ed37a; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;-webkit-tap-highlight-color:transparent;overscroll-behavior:none}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--school);outline-offset:2px}
+.app{max-width:540px;margin:0 auto;height:100%;display:flex;flex-direction:column}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;letter-spacing:.01em}
+
+/* header */
+.top{padding:10px 14px 8px;border-bottom:1px solid var(--line);background:var(--surface)}
+.top-row{display:flex;align-items:center;gap:10px}
+.crest{width:14px;height:14px;border-radius:50%;background:var(--school);box-shadow:0 0 0 3px color-mix(in srgb,var(--school) 30%,transparent);flex:none}
+.who{flex:1;min-width:0}
+.who h1{font-size:1.2rem;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.who small{color:var(--dim);font-size:.82rem}
+.bank{text-align:right}
+.bank b{font-family:var(--display);font-size:1.5rem;line-height:1;color:var(--gold)}
+.bank small{display:block;color:var(--dim);font-size:.75rem}
+.iconbtn{background:none;border:1px solid var(--line);border-radius:8px;width:38px;height:38px;cursor:pointer;font-size:1.1rem;flex:none}
+.res{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;margin-top:8px}
+.res div{text-align:center;padding:4px 0;background:var(--surface2);font-size:.95rem;font-variant-numeric:tabular-nums}
+.res div:first-child{border-radius:6px 0 0 6px}.res div:last-child{border-radius:0 6px 6px 0}
+.res span{display:block;color:var(--dim);font-size:.7rem;line-height:1}
+
+main{flex:1;overflow-y:auto;padding:14px 14px 24px;-webkit-overflow-scrolling:touch}
+nav.tabs{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--line);background:var(--surface)}
+nav.tabs button{background:none;border:0;padding:8px 0 9px;font-size:.74rem;color:var(--dim);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.tabs button i{font-style:normal;font-size:1.15rem;line-height:1}
+nav.tabs button[aria-selected="true"]{color:var(--ink);box-shadow:inset 0 3px 0 var(--school)}
+
+/* sigil */
+.sigil-wrap{display:grid;place-items:center;margin:2px 0 6px}
+.sigil{width:min(68vw,250px);height:auto}
+.sigil .spin{transform-origin:120px 120px;animation:spin 140s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.sigil .spin{animation:none}}
+.realm-line{text-align:center;color:var(--dim);font-size:.9rem;margin-bottom:14px}
+.realm-line b{color:var(--ink);font-weight:500}
+
+.sect{margin:18px 0 8px;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.sect h2{font-size:1.25rem}
+.sect small{color:var(--dim);font-size:.82rem}
+.note{color:var(--dim);font-size:.88rem;margin:4px 0 10px}
+
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{border:1px solid var(--line);background:none;border-radius:999px;padding:5px 13px;cursor:pointer;font-size:.9rem;font-variant-numeric:tabular-nums}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.act{border:1px solid var(--line);background:var(--surface);border-radius:12px;border-bottom-width:3px;padding:10px 12px;text-align:left;cursor:pointer}
+.act b{font-family:var(--display);font-weight:400;font-size:1.08rem;display:block}
+.act span{color:var(--dim);font-size:.82rem;display:block}
+.act:active{transform:translateY(1px)}
+
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:10px 0 10px 12px;border-bottom:1px solid var(--line);position:relative}
+.row::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:2px;background:var(--tint,var(--line))}
+.row h3{font-size:1.05rem}
+.row .meta{color:var(--dim);font-size:.82rem}
+.row .meta b{color:var(--ink);font-weight:500}
+.row .side{display:flex;align-items:center;gap:6px;justify-self:end}
+.row.locked{opacity:.5}
+.count{font-family:var(--display);font-size:1.3rem;font-variant-numeric:tabular-nums}
+
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.stepper button{background:var(--surface2);border:0;width:32px;height:34px;cursor:pointer;font-size:1.05rem}
+.stepper input{width:52px;height:34px;border:0;background:var(--surface);text-align:center;font:inherit;color:var(--ink);font-variant-numeric:tabular-nums}
+
+.btn{border:0;border-radius:8px;padding:9px 14px;cursor:pointer;background:var(--ink);color:var(--bg);font-weight:500}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--line)}
+.btn.warn{background:var(--danger);color:#fff}
+.btn.sch{background:var(--school);color:#1a1310}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.small{padding:6px 11px;font-size:.88rem}
+.bar-foot{position:sticky;bottom:-24px;margin:12px -14px -24px;padding:12px 14px calc(12px + 0px);background:var(--surface);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bar-foot small{color:var(--dim)}
+
+.meter{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin:6px 0}
+.meter i{display:block;height:100%;background:var(--school)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 4px}
+.stats div{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px;text-align:center}
+.stats b{font-family:var(--display);font-size:1.3rem;font-weight:400;display:block;font-variant-numeric:tabular-nums}
+.stats span{color:var(--dim);font-size:.75rem}
+
+.tag{display:inline-block;font-size:.72rem;border-radius:4px;padding:1px 6px;margin-left:4px;vertical-align:2px;background:var(--surface2);color:var(--dim)}
+.tag.hot{background:var(--danger);color:#fff}
+.tag.ally{background:var(--ok);color:#fff}
+
+.ritual{border:1px solid var(--school);border-radius:14px 4px 14px 4px;padding:12px;margin-top:8px;background:color-mix(in srgb,var(--school) 8%,var(--surface))}
+.ritual h3{font-size:1.2rem}
+
+.log{list-style:none;margin:0;padding:0}
+.log li{padding:8px 0 8px 12px;border-bottom:1px solid var(--line);font-size:.92rem;position:relative}
+.log li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:var(--line)}
+.log li.war::before{background:var(--danger)}.log li.magic::before{background:#a45bd1}.log li.omen::before{background:var(--gold)}.log li.you::before{background:var(--school)}.log li.fall::before{background:var(--ink)}
+.log time{color:var(--dim);font-size:.75rem;margin-right:6px;font-variant-numeric:tabular-nums}
+
+/* modal & toast */
+.scrim{position:fixed;inset:0;background:rgba(8,12,18,.6);display:flex;align-items:flex-end;justify-content:center;z-index:20;padding:0 0 env(safe-area-inset-bottom,0px)}
+.sheet{background:var(--surface);width:100%;max-width:540px;border-radius:16px 16px 0 0;padding:18px 16px 16px;max-height:85vh;overflow-y:auto;border-top:3px solid var(--school)}
+.sheet h2{font-size:1.4rem;margin-bottom:6px}
+.sheet p{margin:6px 0}
+.sheet .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;top:calc(118px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:8px;z-index:30;font-size:.92rem;max-width:90vw;text-align:center}
+.report{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.report div{background:var(--surface2);border-radius:6px;padding:8px}
+.report span{color:var(--dim);font-size:.78rem;display:block}
+
+/* setup */
+.setup{padding:22px 16px 30px;overflow-y:auto;height:100%}
+.title{text-align:center;margin:8px 0 18px}
+.title h1{font-size:clamp(3rem,16vw,4.4rem);line-height:.9;color:var(--ink);text-shadow:3px 3px 0 var(--school),6px 6px 0 color-mix(in srgb,var(--school) 35%,transparent);transform:rotate(-2deg);margin-top:6px}
+.credit{font-family:var(--display);font-size:1.5rem;color:var(--school);transform:rotate(-6deg);display:inline-block;margin:4px 0 -6px -120px}
+.gc{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:12px 0;background:var(--surface)}
+.gc-m{display:grid;grid-template-columns:10px 1fr;gap:8px;padding:6px 0;border-top:1px dashed var(--line);font-size:.88rem}
+.gc-m i{width:10px;height:10px;border-radius:50%;margin-top:5px}
+.gc-m time{color:var(--dim);font-size:.72rem;margin-left:4px}
+.gc-m p{margin:2px 0 0;background:var(--surface2);border-radius:4px 12px 12px 12px;padding:6px 10px;display:inline-block}
+.vk{text-align:center}
+.vk-score{font-family:var(--display);font-size:5.5rem;line-height:1;color:#ffc93c;margin:6px 0 4px;text-shadow:4px 4px 0 var(--c)}
+.vk-mics{font-size:1.4rem;letter-spacing:4px;margin:8px 0 4px}.vk-mics span{opacity:.2}.vk-mics span.on{opacity:1}
+.br-quote{font-style:italic;color:#c9cfd4;border-left:3px solid var(--c);padding-left:10px;margin:8px 0}
+.br-quote b{font-style:normal;color:#f0ead6}
+.badges{list-style:none;margin:6px 0;padding:0;display:grid;gap:4px}
+.badges li{display:flex;flex-direction:column;padding:6px 8px;border-radius:8px;background:var(--surface2);opacity:.55}
+.badges li.on{opacity:1}.badges li span{color:var(--dim);font-size:.8rem}
+.byline{color:var(--dim);font-size:.8rem;text-align:center;margin-top:18px}
+.flags{display:block;width:calc(100% + 32px);margin:-22px -16px 6px;height:34px}
+.title p{color:var(--dim);margin:8px auto 0;max-width:34ch}
+.field{margin:16px 0}
+.field label,.field .lbl{display:block;font-family:var(--display);font-size:1.1rem;margin-bottom:6px}
+.field input[type=text]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font:inherit}
+.schools{display:grid;gap:6px}
+.sch-opt{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--surface);padding:10px 12px;border-radius:8px;cursor:pointer}
+.sch-opt i{grid-row:span 2;width:30px;height:30px;border-radius:50%;background:var(--c);opacity:.35}
+.sch-opt b{font-family:var(--display);font-weight:400;font-size:1.1rem}
+.sch-opt span{color:var(--dim);font-size:.82rem}
+.sch-opt[aria-pressed="true"]{border-color:var(--c);box-shadow:inset 4px 0 0 var(--c)}
+.sch-opt[aria-pressed="true"] i{opacity:1}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{flex:1;background:var(--surface);border:0;padding:9px 4px;cursor:pointer;font-size:.92rem}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg-note{color:var(--dim);font-size:.82rem;margin-top:5px}
+.baybayin{font-family:var(--display);font-size:1.15rem;color:var(--school);margin-top:12px;line-height:1.2}
+.lore{font-style:italic;color:var(--dim);font-size:.8rem}
+.endcard{text-align:center;padding:30px 18px}
+.endcard h1{font-size:2.6rem;margin-bottom:8px}
+
+.chron .row h3{font-size:1.1rem}
+/* ===== v2 ===== */
+.moons{display:inline-flex;gap:4px;vertical-align:middle;margin:4px 0}
+.moons i{width:12px;height:12px;border-radius:50%;background:none;border:1.5px solid var(--dim);display:block}
+.moons i.gone{background:var(--gold);border-color:var(--gold)}
+.eclipse{background:#1d2a3a;color:#ffd65c;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-weight:700;text-align:center;border:1px solid #34506d}
+.eclipse.soon{background:var(--surface2);color:var(--ink);border-color:var(--line)}
+.warnline{color:var(--danger)}
+.offers{list-style:none;padding:0;margin:10px 0 0;font-size:.85rem;color:var(--dim)}
+.offers li{display:flex;gap:8px;padding:3px 0;border-top:1px dashed var(--line)}
+.offers li span{min-width:62px;color:var(--ink);font-weight:700}
+.offers li.done{text-decoration:line-through;opacity:.6}
+.offers li.now{color:var(--ink)}
+.offers li.now span{color:var(--school)}
+.gcard{border:1px solid var(--line);border-radius:14px 4px 14px 4px;overflow:hidden;background:var(--surface);margin-bottom:14px}
+.gart{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.gcard.sleeping .gart{filter:grayscale(.85) brightness(.55)}
+.gbody{padding:12px 14px}
+.gbody h3{font-size:1.25rem}
+.abil{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:10px;margin-top:6px}
+.stars{color:var(--gold);letter-spacing:1px}
+.uwrap{display:flex;gap:10px;align-items:flex-start}
+.uthumb{width:56px;height:56px;border-radius:8px;object-fit:cover;flex:none;border:1px solid var(--line)}
+.uthumb.rival{width:64px;height:64px;border-radius:50%;border:2px solid var(--tint,var(--line))}
+.uthumb.ph{display:grid;place-items:center;text-align:center;border:1.5px dashed color-mix(in srgb,var(--c) 70%,var(--line));background:color-mix(in srgb,var(--c) 10%,var(--surface));font-size:.62rem;line-height:1.15;color:var(--dim);padding:4px;text-transform:uppercase;letter-spacing:.04em}
+.splash{position:fixed;inset:0;z-index:45;background:rgba(6,9,14,.9);display:flex;align-items:center;justify-content:center;padding:calc(12px + env(safe-area-inset-top,0px)) 12px calc(12px + env(safe-area-inset-bottom,0px));animation:kxfade .3s both}
+.splash-card{width:min(100%,560px);max-height:100%;overflow-x:hidden;overflow-y:auto;background:#111821;color:#f0ead6;border:2px solid var(--c);border-radius:16px;box-shadow:0 0 60px color-mix(in srgb,var(--c) 45%,transparent)}
+.splash-frame{overflow:hidden}
+.splash-art{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;animation:kenburns 6s ease-out both}
+@keyframes kenburns{from{transform:scale(1.14)}to{transform:scale(1)}}
+.splash-body{padding:14px 16px 16px}
+.splash-kicker{font-family:var(--body);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--c);font-size:.8rem}
+.gph{display:grid;place-items:center;aspect-ratio:16/9;background:color-mix(in srgb,var(--c) 18%,#111821);color:#9aa4ad;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;border-bottom:1.5px dashed var(--c)}
+main.swap>*{animation:swapin .26s ease-out both}
+@keyframes swapin{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@keyframes kxfade{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){main.swap>*{animation:none!important}}
+.splash-body h2{font-family:var(--display);font-size:1.9rem;line-height:1.05;margin-top:2px}
+.splash-title{color:#9aa4ad;margin-bottom:6px}
+.splash-body .btn{width:100%;margin-top:8px;padding:12px}
+@media (prefers-reduced-motion:reduce){.splash-art,.splash{animation:none!important}}
+.keyart{display:block;width:calc(100% + 32px);max-width:none;margin:-22px -16px 0;aspect-ratio:16/9;object-fit:cover;-webkit-mask-image:linear-gradient(to bottom,#000 72%,transparent);mask-image:linear-gradient(to bottom,#000 72%,transparent)}
+.sigil-wrap.scene{background-size:cover;background-position:center 42%;border-radius:14px;padding:16px 0;position:relative;overflow:hidden}
+.sigil-wrap.scene::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,color-mix(in srgb,var(--bg) 15%,transparent),color-mix(in srgb,var(--bg) 60%,transparent))}
+.sigil-wrap.scene .sigil{position:relative;background:radial-gradient(circle,color-mix(in srgb,var(--bg) 84%,transparent) 50%,transparent 71%);border-radius:50%}
+.endart{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin-bottom:14px}
+.splash-art.tall{aspect-ratio:3/4;max-height:56vh}
+
+/* ===== features ===== */
+.res > div{position:relative}
+.floater{position:absolute;left:50%;top:60%;transform:translateX(-50%);font-weight:700;font-size:.82rem;pointer-events:none;white-space:nowrap;animation:floatup 1.6s ease-out forwards;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.floater.up{color:var(--ok)}.floater.down{color:var(--danger)}
+@keyframes floatup{0%{opacity:0;transform:translate(-50%,0)}15%{opacity:1}100%{opacity:0;transform:translate(-50%,-34px)}}
+.race,.quests{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:12px 0;background:var(--surface)}
+.race-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.race-h h2{font-size:1.15rem}.race-h small{color:var(--dim);font-size:.78rem}
+.race-row{display:grid;grid-template-columns:10px minmax(0,1fr) auto;grid-template-areas:"dot nm moons" ". st st";column-gap:8px;align-items:center;padding:5px 0;border-top:1px dashed var(--line);font-size:.86rem}
+.race-row i{grid-area:dot;width:10px;height:10px;border-radius:50%}
+.race-row .nm{grid-area:nm;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.race-row .moons{grid-area:moons;margin:0}.race-row .moons i{width:9px;height:9px}
+.race-row .st{grid-area:st;color:var(--dim);font-size:.76rem}
+.race-row .hot{color:var(--danger)}
+.race-row.me .nm{font-weight:700;color:var(--school)}
+.q{padding:6px 0;border-top:1px dashed var(--line)}
+.q-t{display:flex;justify-content:space-between;gap:8px;font-size:.86rem}.q-t span{color:var(--gold);font-size:.78rem;text-align:right}
+.q .meter{margin:5px 0 0;height:6px}
+.br .br-art{position:relative}
+.br-day{position:absolute;left:10px;top:10px;background:rgba(8,12,18,.7);color:#f0ead6;font-size:.75rem;padding:3px 8px;border-radius:999px;letter-spacing:.06em;text-transform:uppercase}
+.br-verdict{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 8px;background:linear-gradient(to top,rgba(8,12,18,.92),transparent);font-family:var(--display);font-size:1.8rem;line-height:1;color:#fff}
+.br-verdict.good{color:#b6e3a0}.br-verdict.bad{color:#f2a090}
+.br-vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:6px;margin:8px 0 6px}
+.br-vs>div{display:flex;flex-direction:column;min-width:0}.br-vs .r{text-align:right;align-items:flex-end}
+.br-vs i{width:10px;height:10px;border-radius:50%;display:block;margin-bottom:3px}
+.br-vs b{font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.br-vs small{color:#9aa4ad;font-size:.72rem}
+.br-num{font-family:var(--display);font-size:1.7rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.br-x{color:#9aa4ad;font-family:var(--display);font-size:1.1rem;padding-bottom:6px}
+.br-bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:#29323e}
+.br-bar span{width:50%;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.br-bar.on span{width:var(--w)}
+.br-story{font-size:.92rem;line-height:1.5;margin:10px 0}
+.br-loss{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.br-loss>div{background:#1a222d;border-radius:8px;padding:8px 10px}
+.br-loss span{display:block;color:#9aa4ad;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}
+.br-loss b{font-family:var(--display);font-size:1.3rem;font-weight:400}
+.br-loss small{display:block;color:#c9cfd4;font-size:.75rem;line-height:1.35;margin-top:2px}
+.br-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.br-chips span{font-size:.78rem;padding:3px 9px;border-radius:999px;background:#29323e;color:#f0ead6}
+.br-chips .good{background:#24402a;color:#b6e3a0}.br-chips .bad{background:#4a2420;color:#f2a090}
+.omen-c{display:grid;gap:8px;margin-top:10px}
+.omen-c .btn{display:flex;flex-direction:column;align-items:flex-start;text-align:left;width:100%;padding:10px 12px}
+.omen-c .btn small{font-weight:400;opacity:.85;font-size:.8rem;margin-top:2px}
+.splash-card .btn.ghost{color:#f0ead6;border-color:#3a4656}
+@media (prefers-reduced-motion:reduce){.floater{animation:none;display:none}.br-bar span{transition:none}}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+
+<script>
+/* ============ GAME DATA ============ */
+const SCHOOLS={
+  ember:{name:'Tanod',color:'#e0533d',passive:'Raids hit 10% harder.',blurb:'The barangay night patrol. Flashlights, batuta, and zero chill after 10 PM.'},
+  tide:{name:'Live Seller',color:'#2f8fd8',passive:'20% more load.',blurb:'“Mine! Mine! Mine!” They live on their phones and never run out of load. Best at wrecking a rival’s song.'},
+  verdant:{name:'Angkan',color:'#3fa34d',passive:'15% more room for neighbors.',blurb:'The extended family. Every reunion is a crowd and every house has a spare banig.'},
+  gloam:{name:'Marites',color:'#a45bd1',passive:'Tropa cost 25% less upkeep.',blurb:'The chismis network. They work for free as long as there’s tea. Masters of the rumor.'},
+  dawn:{name:'Tsuper',color:'#d9a20b',passive:'Shrugs off 20% of hostile chismis.',blurb:'Jeepney drivers. Thick skin, loud horns, and a sticker for every situation.'}
+};
+const SKEYS=Object.keys(SCHOOLS);
+const BUILDINGS=[
+  {k:'farm',name:'Boarding House',cost:40,desc:'Bedspace for 25 more neighbors.'},
+  {k:'market',name:'Sari-sari Store',cost:60,desc:'Sells everything in sachets. +12 pesos each turn.'},
+  {k:'well',name:'Piso WiFi',cost:70,desc:'One peso, ten minutes. +9 load each turn.'},
+  {k:'library',name:'Barbershop',cost:80,desc:'Where diskarte gets passed around. A little diskarte every turn, +2 more each time you learn.'},
+  {k:'bastion',name:'Gate na may Aso',cost:110,desc:'A gate with a “Beware of Dog” sign. The dog is a chihuahua. +35 defense.'}
+];
+const U=(name,school,tier,atk,def,gold,mana,upG,upM,lore)=>({name,school,tier,atk,def,gold,mana,upG,upM,lore});
+const UNITS={
+  levy:U('Tambay',null,1,2,3,25,0,.4,0,'Corner idlers in sando and tsinelas. Cheap, loyal, always available.'),
+  archer:U('Kargador',null,1,4,3,55,0,.8,0,'Palengke porters. They can carry a ref on their back.'),
+  imp:U('Tanod Trainee','ember',1,6,2,0,45,0,.6,'Batuta, flashlight, and a whistle he blows at everything.'),
+  hound:U('Ronda Rider','ember',2,14,9,0,150,0,1.6,'Night patrol on a motorbike with one working headlight.'),
+  wyrm:U('Patrol Multicab','ember',3,46,30,0,620,0,5,'The barangay multicab. Siren, megaphone, nine tanods on the roof.'),
+  sprite:U('Mine Miner','tide',1,4,6,0,45,0,.6,'Types “mine” faster than you can blink. Rarely pays.'),
+  djinn:U('Parcel Rider','tide',2,11,15,0,150,0,1.6,'Knows every eskinita in the city. Arrives “5 minutes away” for an hour.'),
+  leviathan:U('Live Selling Queen','tide',3,34,48,0,620,0,5,'Sells 400 items before you finish asking “magkano?”'),
+  thornling:U('Pinsan','verdant',1,4,7,0,45,0,.6,'Cousins. Nobody knows exactly how many there are.'),
+  treant:U('Tito sa Inuman','verdant',2,9,19,0,150,0,1.6,'Will not leave his plastic chair until the reunion is over. Will not leave it after, either.'),
+  titan:U('Lola Matriarch','verdant',3,30,54,0,620,0,5,'Her “kumain ka na?” is both a blessing and a threat.'),
+  ghoul:U('Marites','gloam',1,5,4,0,35,0,.45,'Hears everything. Repeats it louder.'),
+  wraith:U('Chismosa sa Bintana','gloam',2,13,10,0,140,0,1.4,'Watches the whole street from behind the curtains. Takes notes.'),
+  colossus:U('GC Admin','gloam',3,40,38,0,600,0,4.6,'Runs a group chat of 2,000 titas. One forward ends careers.'),
+  sigbin:Object.assign(U('Dummy Account','gloam',2,14,9,0,150,0,1.6,'No profile picture, no friends, no mercy. Raids with Dummy Accounts ignore 25% of enemy Gates.'),{needG:1}),
+  squire:U('Barker','dawn',1,5,5,0,45,0,.6,'“Kasya pa! Kasya pa!” There is always room for one more.'),
+  halo:U('Trike Driver','dawn',2,12,13,0,150,0,1.6,'Fits a family of seven and a sack of rice in one sidecar.'),
+  seraph:U('King of the Road','dawn',3,38,40,0,620,0,5,'A chrome jeepney with twelve side mirrors and a horn that plays a song.')
+};
+const SCHOOL_UNITS={ember:['imp','hound','wyrm'],tide:['sprite','djinn','leviathan'],verdant:['thornling','treant','titan'],gloam:['ghoul','wraith','colossus'],dawn:['squire','halo','seraph']};
+const SCHOOL_EXTRA={gloam:['sigbin']};
+const UNIT_ART={levy:'tambay',archer:'kargador',imp:'tanod-trainee',hound:'ronda-rider',wyrm:'patrol-multicab',sprite:'mine-miner',djinn:'parcel-rider',leviathan:'live-selling-queen',thornling:'pinsan',treant:'tito-sa-inuman',titan:'lola-matriarch',ghoul:'marites',sigbin:'dummy-account',wraith:'chismosa',colossus:'gc-admin',squire:'barker',halo:'trike-driver',seraph:'king-of-the-road'};
+const ART={};/*ART*/
+const S=(name,school,tier,cost,type,fx,desc,dur)=>({name,school,tier,cost,type,fx,desc,dur});
+const SPELLS={
+  ward:S('Block & Mute',null,1,70,'ench',{resist:.4},'Block, mute, unfollow: shrug off 40% of hostile chismis for 25 turns.',25),
+  scry:S('FB Stalk',null,1,15,'scry',{},'Scroll way back through a rival’s profile to see their pesos, load, rank and tropa.'),
+  kindle:S('Kape Barako Round','ember',1,80,'ench',{atk:.25},'Strong coffee for the night shift: raid power +25% for 20 turns.',20),
+  firestorm:S('Oplan Tambay','ember',2,220,'hex',{pop:.08,units:.05,ritual:6},'Round up a rival’s loiterers: 8% of their neighbors and 5% of their tropa.'),
+  ashrain:S('Road Widening','ember',3,480,'hex',{bld:.06,pop:.1,ritual:6},'A surprise road project cuts through a rival’s street: 6% of their buildings and 10% of their neighbors gone.'),
+  fortune:S('Flash Sale','tide',1,70,'ench',{mana:.35},'Every day is 12.12: load income +35% for 20 turns.',20),
+  mindfog:S('Joy Reserver','tide',2,200,'hex',{mana:.3,ritual:20},'Flood a rival with fake orders: drain 30% of their load and throw their song way off key.'),
+  maelstrom:S('Free Shipping','tide',3,480,'hex',{units:.1,ritual:6},'An irresistible promo: 10% of a rival’s tropa quit to become resellers.'),
+  bounty:S('Reunion Potluck','verdant',1,80,'ench',{gold:.2,growth:1},'Everyone brings a dish: pesos +20% and neighbors move in twice as fast for 20 turns.',20),
+  thornwall:S('Titas sa Porch','verdant',2,200,'ench',{def:.35},'The titas guard the porch with pamaypay and opinions: defense +35% for 20 turns.',20),
+  overgrowth:S('Lolo’s Last Will','verdant',3,500,'self',{land:.05},'The inheritance finally clears: +5% lote at once.'),
+  raise:S('GC Blast','gloam',1,70,'self',{ghouls:1},'Forward it to the group chat: 10 Marites join, plus 1 for every 8 lote you hold.'),
+  plague:S('Chismis Storm','gloam',2,210,'hex',{pop:.14,ritual:6},'A juicy rumor about a rival: 14% of their neighbors move out in embarrassment.'),
+  siphon:S('Pa-load Muna','gloam',3,480,'hex',{steal:.2,units:.06,ritual:6},'“Pa-load muna, bayad bukas.” Take 20% of a rival’s load forever; 6% of their tropa ghost them.'),
+  blessing:S('Chrome Plating','dawn',1,80,'ench',{def:.3},'Polish everything until it blinds: defense +30% for 20 turns.',20),
+  judgment:S('Transport Strike','dawn',2,220,'hex',{units:.08,ritual:6},'No jeeps today: 8% of a rival’s tropa can’t get anywhere and give up.'),
+  rally:Object.assign(S('Hyped Up',null,9,0,'ench',{atk:.05},'Your street is fired up.',20),{hidden:1}),
+  sanctuary:S('Airplane Mode','dawn',3,520,'ench',{immune:1},'Phone off, horn off: no hostile chismis can reach you for 12 turns.',12)
+};
+const TIER_RP=[0,0,300,1200,3500];
+const MODES={
+  blitz:{name:'Blitz',rate:3000,cap:120,start:90,note:'A turn every 3 seconds. Play in one sitting.'},
+  steady:{name:'Steady',rate:45000,cap:300,start:90,note:'A turn every 45 seconds, banked while you are away.'}
+};
+const DIFFS={
+  apprentice:{name:'Chill',eco:.85,aggr:.55},
+  adept:{name:'Sakto',eco:1,aggr:1},
+  archon:{name:'Hardcore',eco:1.2,aggr:1.5}
+};
+const SEASON=1000, PROTECT=25, FALL_LAND=20;
+const RIVAL_NAMES={
+  ember:['Kap Bebot','Tanod Ruben','Ka Dodong Batuta'],
+  tide:['Ate Mine','Sir Freeship','Madam Pasabuy'],
+  verdant:['Tita Baby','Tito Boy Pogi','Lola Charing'],
+  gloam:['Aling Marites','Kumareng Ising','Tita Chika'],
+  dawn:['Mang Pidoy','Kuya Barker','Boss Lastrip']
+};
+
+/* ============ CORE LOGIC (v2) ============ */
+let G=null;
+const rnd=Math.random;
+const pick=a=>a[Math.floor(rnd()*a.length)];
+const P=()=>G.player;
+const allW=()=>[G.player,...G.rivals];
+const byId=id=>allW().find(w=>w.id===id);
+
+/* v2 constants */
+const MOON_TURNS=6, CHANT_COST=20, SHRINE_COST=1500, AWAKEN_COST=1000, AWAKEN_TURNS=3, G_COOLDOWN=25, G_WOUND=15;
+const BEATS={tide:'ember',ember:'verdant',verdant:'gloam',gloam:'dawn',dawn:'tide'};
+const OFFER=[null,
+  {t:'mana',n:300,label:'300 load'},
+  {t:'mana',n:500,label:'500 load'},
+  {t:'beast',label:'Lend 1 rank 3 star as a back-up dancer'},
+  {t:'land',n:100,label:'Give 100 lote for fiesta parking'},
+  {t:'guardian',label:'Your Lodi must be in the audience'},
+  {t:'mana',n:2000,label:'2,000 load in one go'},
+  {t:'stand',n:5,label:'The encore: survive 5 turns with no lost raid'}];
+const GUARDIANS={
+  ember:{name:'Kap Tikas',title:'The Barangay Captain',atk:55,def:35,art:'lodi-tanod',passive:'The Tanod raid bonus rises from 10% to 25%.',
+    ab:{key:'crater',name:'Clearing Operation',cost:350,target:true,desc:"Clears out 12% of a rival's neighbors and tows away 8% of their Gates."}},
+  tide:{name:'Ate Ganda Live',title:'The Unstoppable Live Seller',atk:42,def:50,art:'lodi-live-seller',passive:'Load +30%. Live Seller tropa never quit when load runs out.',
+    ab:{key:'chasm',name:'Mega Sale',cost:320,target:false,desc:'For 10 turns, the next tropa that raids you loses 15% of its force to a mega sale before the fight.'}},
+  verdant:{name:'Lola Bining',title:'The Family Matriarch',atk:30,def:65,art:'lodi-angkan',passive:'Gate defense +50%. Upkeep −15%.',
+    ab:{key:'sanct',name:'Bayanihan',cost:300,target:false,desc:'The whole family rebuilds what you lost in the last 10 turns, and defense +100% for 10 turns. Not while singing.'}},
+  gloam:{name:'Reyna Marites',title:'The Queen of Chismis',atk:48,def:40,art:'lodi-marites',passive:'Upkeep −35% more (50% total). Chismis costs 25% less. Unlocks Dummy Accounts.',
+    ab:{key:'eclipse',name:'Seen-Zone',cost:340,target:true,desc:"Steals 25% of a rival's load and leaves them on seen for 15 turns."}},
+  dawn:{name:'Mang Turing',title:'The King of the Road',atk:45,def:48,art:'lodi-tsuper',passive:'Resists 40% of chismis (60% with the Tsuper passive). Piso WiFi load doubled.',
+    ab:{key:'radiance',name:'Full Throttle',cost:360,target:false,desc:'Takes you off seen-zone and adds 3 turns of singing progress.'}}
+};
+
+function fillWizard(w){
+  const d={moons:0,chant:0,stand:0,rite:false,shrine:false,g:null,gStance:0,gSanct:0,blind:0,lostB:[],pending:0};
+  for(const k in d) if(w[k]===undefined) w[k]=Array.isArray(d[k])?[]:d[k];
+  if(w.ritual){ if(w.ritual.active){w.rite=true;w.shrine=true;w.moons=Math.min(6,Math.floor(w.ritual.p/100*7));} delete w.ritual; }
+  return w;
+}
+function newWizard(id,name,school,isPlayer){
+  const t1=SCHOOL_UNITS[school][0];
+  return fillWizard({id,name,school,isPlayer,ally:false,alive:true,gold:1000,mana:400,pop:600,land:120,
+    b:{farm:10,market:6,well:6,library:3,bastion:2},u:{levy:60,archer:20,[t1]:15},
+    rp:0,tier:1,ench:{},cd:0,scd:0,persona:pick(['warlord','sage','builder'])});
+}
+function newGame(opts){
+  const p=newWizard('p',opts.name||'Juan Bahala',opts.school,true);
+  const pool=SKEYS.slice().sort(()=>rnd()-.5);
+  const rivals=pool.map((s,i)=>newWizard('r'+i,pick(RIVAL_NAMES[s]),s,false));
+  if(opts.variant==='covenant') rivals[0].ally=true;
+  G={v:2,mode:opts.mode,diff:opts.diff,variant:opts.variant,day:0,bank:MODES[opts.mode].start,lastTick:Date.now(),
+     player:p,rivals,log:[],intel:{},pending:[],over:null,battles:[]};
+  log(`${p.name} moves into Barangay Bagong Pag-asa with ₱1,000 and a borrowed electric fan. Five rival households are already here.`,'omen');
+  if(G.variant==='covenant') log(`${rivals[0].name} is your kumpare. They will never raid you.`,'you');
+}
+function migrate(g){ if(!g)return null; g.v=2; g.battles=g.battles||[]; [g.player,...g.rivals].forEach(fillWizard); return g; }
+function ensureStats(){G.stats=G.stats||{wins:0,curses:0,explored:0,done:0};}
+function log(t,k='info'){G.log.unshift({d:G.day,t,k}); if(G.log.length>220)G.log.length=220;}
+function hostile(a,b){ if(a===b) return false; if((a.isPlayer&&b.ally)||(b.isPlayer&&a.ally)) return false; return true; }
+const built=w=>Object.values(w.b).reduce((s,n)=>s+n,0)+(w.shrine?1:0);
+const freeLand=w=>Math.max(0,w.land-built(w));
+function mod(w,key){let s=0;for(const k in w.ench){const f=SPELLS[k].fx[key];if(f)s+=f;}return s;}
+const hasG=w=>!!w.g;
+const gReady=w=>!!(w.g&&!w.g.wound);
+const gIs=(w,s)=>hasG(w)&&w.school===s;
+const popCap=w=>(w.land*6+w.b.farm*25)*(w.school==='verdant'?1.15:1);
+const goldIncome=w=>(w.pop*.12+w.b.market*12)*Math.min(2,1+mod(w,'gold'));
+const manaIncome=w=>(3+w.b.well*9*(gIs(w,'dawn')?2:1)+w.land*.05)*Math.min(2,1+mod(w,'mana')+(w.school==='tide'?.2:0)+(gIs(w,'tide')?.3:0));
+function upkeepCut(w){return Math.min(.5,(w.school==='gloam'?.25:0)+(gIs(w,'gloam')?.35:0)+(gIs(w,'verdant')?.15:0));}
+function upkeep(w){let g=0,m=0;for(const k in w.u){g+=w.u[k]*UNITS[k].upG;m+=w.u[k]*UNITS[k].upM;}const f=1-upkeepCut(w);return{g:g*f,m:m*f};}
+const exploreCostPer=w=>20+w.land*.5;
+const acresPerTurn=w=>3+Math.floor(w.land/100);
+const buildRate=w=>4+Math.floor(w.land/50);
+const armyRaw=w=>Object.entries(w.u).reduce((s,[k,n])=>s+n*(UNITS[k].atk+UNITS[k].def)/2,0)+(w.g?20*w.g.lvl*(GUARDIANS[w.school].atk+GUARDIANS[w.school].def)/2:0);
+const atkBonus=w=>Math.min(.75,mod(w,'atk')+(w.school==='ember'?(hasG(w)?.25:.1):0));
+const defBonus=w=>Math.min(1,mod(w,'def'))+(w.gSanct>0?1:0);
+const gAtk=w=>gReady(w)?20*w.g.lvl*GUARDIANS[w.school].atk:0;
+const gDef=w=>gReady(w)?20*w.g.lvl*GUARDIANS[w.school].def:0;
+function armyAtk(w,frac=1,sendG=true){let s=0;for(const k in w.u)s+=w.u[k]*UNITS[k].atk;return (s*frac+(sendG?gAtk(w):0))*(1+atkBonus(w));}
+const kutaDef=w=>w.b.bastion*35*(gIs(w,'verdant')?1.5:1);
+function armyDef(w){let s=0;for(const k in w.u)s+=w.u[k]*UNITS[k].def;return (s+gDef(w))*(1+defBonus(w))+kutaDef(w)+w.land*.5;}
+const power=w=>w.alive?Math.round(w.land*8+armyRaw(w)*.6+built(w)*4):0;
+const resist=w=>w.ench.sanctuary?1:Math.min(.8,mod(w,'resist')+(w.school==='dawn'?.2:0)+(gIs(w,'dawn')?.4:0));
+const hexCost=(w,k)=>Math.round(SPELLS[k].cost*(SPELLS[k].type==='hex'?(1+w.land/600)*(1-Math.min(.4,gIs(w,'gloam')?.25:0)):1));
+const unitUnlocked=(w,k)=>{const u=UNITS[k];if(u.needG&&!hasG(w))return false;return (u.school===null||u.school===w.school)&&w.tier>=u.tier;};
+const spellKnown=(w,k)=>{const s=SPELLS[k];return (s.school===null||s.school===w.school)&&w.tier>=s.tier;};
+const wheel=(a,d)=>BEATS[a.school]===d.school?.2:BEATS[d.school]===a.school?-.1:0;
+const eclipseNow=()=>G.day>=100&&G.day%100<10;
+const eclipseSoon=()=>G.day>=90&&G.day%100>=90;
+function isLeader(w){const r=allW().filter(x=>x.alive).sort((a,b)=>power(b)-power(a));return r[0]===w;}
+const unitsOf=w=>['levy','archer',...SCHOOL_UNITS[w.school],...(SCHOOL_EXTRA[w.school]||[])];
+
+function tick(w){
+  if(!w.alive) return null;
+  const eco=w.isPlayer?1:DIFFS[G.diff].eco;
+  const cap=popCap(w);
+  if(w.pop<cap) w.pop+=(cap-w.pop)*.05*(1+mod(w,'growth')); else w.pop-=(w.pop-cap)*.1;
+  w.gold+=goldIncome(w)*eco;
+  w.mana+=manaIncome(w)*eco;
+  w.rp+=w.b.library*.3;
+  const up=upkeep(w); w.gold-=up.g; w.mana-=up.m;
+  for(const k of ['gold','mana','pop','rp'])if(!isFinite(w[k]))w[k]=0;
+  for(const k in w.u)if(!isFinite(w.u[k])||w.u[k]<0)w.u[k]=0;
+  let flag=null;
+  if(w.gold<0){for(const k in w.u)if(UNITS[k].upG>0)w.u[k]-=Math.ceil(w.u[k]*.03);w.gold=0;flag='gold';}
+  if(w.mana<0){for(const k in w.u)if(UNITS[k].upM>0&&!(gIs(w,'tide')&&UNITS[k].school==='tide'))w.u[k]-=Math.ceil(w.u[k]*.03);w.mana=0;flag=flag?'both':'mana';}
+  for(const k in w.ench){if(--w.ench[k]<=0){delete w.ench[k]; if(w.isPlayer) log(`${SPELLS[k].name} wears off.`,'magic');}}
+  if(w.g){ if(w.g.cd>0)w.g.cd--; if(w.g.wound>0){w.g.wound--; if(!w.g.wound&&w.isPlayer)log(`${GUARDIANS[w.school].name} is back from the clinic and ready again.`,'you');} }
+  if(w.gStance>0)w.gStance--; if(w.gSanct>0)w.gSanct--; if(w.blind>0)w.blind--;
+  w.lostB=w.lostB.filter(x=>G.day-x.d<=10);
+  if(w.rite&&w.chant>=MOON_TURNS&&!w.stand) tryOffer(w);
+  if(w.stand>0){ w.stand--; if(w.stand===0){ w.moons=7; } }
+  updateTier(w);
+  return flag;
+}
+function updateTier(w){
+  while(w.tier<4&&w.rp>=TIER_RP[w.tier+1]){
+    w.tier++;
+    if(w.isPlayer){UI.kq.push({type:'tier',tier:w.tier,s:w.school}); log(w.tier===4?'Rank 4: you know every diskarte there is. Build a Videoke Stage to enter the Videoke Showdown.':w.tier===3?'Rank 3: you can now call your Lodi from the Tropa tab.':`Rank ${w.tier}: new tropa and moves unlocked.`,'you');}
+    else if(w.tier===4) log(`Word on the street: ${w.name} has learned every diskarte.`,'omen');
+  }
+}
+/* shared activities, return false when they can't be done */
+function explore(w){const per=exploreCostPer(w);let a=acresPerTurn(w);if(w.gold<per*a)a=Math.floor(w.gold/per);if(a<=0)return false;w.gold-=a*per;w.land+=a;return a;}
+function earn(w){const g=w.pop*.15;w.gold+=g;return g;}
+function meditate(w){const m=12+w.b.well*6;w.mana+=m;return m;}
+function study(w){const r=10+w.b.library*2;w.rp+=r;updateTier(w);return r;}
+
+/* ---- the seven moons ---- */
+function offerCost(w,m){const o=OFFER[m];return o.t==='mana'?Math.round(o.n*(isLeader(w)?1.1:1)):(o.n||0);}
+function canOffer(w,m){const o=OFFER[m];
+  if(o.t==='mana')return w.mana>=offerCost(w,m);
+  if(o.t==='beast')return (w.u[SCHOOL_UNITS[w.school][2]]||0)>=1;
+  if(o.t==='land')return w.land-100>=FALL_LAND+30;
+  if(o.t==='guardian')return gReady(w);
+  return true;}
+function trimBuildings(w){let over=built(w)-w.land;const keys=Object.keys(w.b);let i=0;while(over>0&&i<5000){const k=keys[i%keys.length];if(w.b[k]>0){w.b[k]--;over--;}i++;}}
+function tryOffer(w){
+  const m=w.moons+1; if(m>7)return false;
+  if(!canOffer(w,m)) return 'stall';
+  const o=OFFER[m];
+  if(o.t==='mana')w.mana-=offerCost(w,m);
+  if(o.t==='beast')w.u[SCHOOL_UNITS[w.school][2]]--;
+  if(o.t==='land'){w.land-=100;trimBuildings(w);}
+  if(o.t==='stand'){w.stand=o.n;log(w.isPlayer?'The encore! Survive 5 turns without losing a raid and you are Grand Champion.':`${w.name} is singing the encore. Five turns to break it!`,'omen');
+    if(!w.isPlayer)G.pending.push({t:`${w.name} is singing the encore. Beat them in a raid within 5 turns or they take the crown.`,k:'omen'});return true;}
+  w.moons++; w.chant=0;
+  if(w.isPlayer) UI.kq.push({type:'score',n:w.moons});
+  log(w.isPlayer?`Perfect 100 on song ${w.moons}! ${7-w.moons} to go.`:`The whole street hears it: ${w.name} scored 100 on song ${w.moons}.`,'omen');
+  if(!w.isPlayer&&hostile(P(),w)&&w.moons>=3) G.pending.push({t:`${w.name} has scored ${w.moons} of 7 perfect songs.`,k:'omen'});
+  return true;
+}
+function chant(w){
+  if(!w.rite||!w.shrine||w.stand>0) return false;
+  if(w.chant>=MOON_TURNS) return tryOffer(w)===true?'offer':false;
+  if(w.mana<CHANT_COST) return false;
+  w.mana-=CHANT_COST; w.chant=Math.min(MOON_TURNS,w.chant+(eclipseNow()?2:1));
+  if(w.chant>=MOON_TURNS) tryOffer(w);
+  return true;
+}
+function buildShrine(w){
+  if(w.shrine||w.tier<4||w.gold<SHRINE_COST||freeLand(w)<1) return false;
+  w.gold-=SHRINE_COST; w.shrine=true;
+  log(w.isPlayer?'Your Videoke Stage is up, speakers and all. You can enter the showdown.':`${w.name} has set up a Videoke Stage.`,w.isPlayer?'you':'omen');
+  return true;
+}
+function beginRitual(w){
+  if(w.tier<4||!w.shrine||w.rite) return false;
+  w.rite=true; w.moons=0; w.chant=0; w.stand=0;
+  if(w.isPlayer){const r=gcRival();if(r)gcPost(r,pick(GC_EV.youSing));}else gcPost(w,pick(GC_EV.sing));
+  log(w.isPlayer?'You grab the mic. The speakers crackle, and every rival on the street hears it.':`${w.name} grabbed the mic and is going for seven perfect 100s. Stop them before the encore.`,'omen');
+  if(w.isPlayer) UI.kq.push({type:'rite',w:who(w)});
+  else G.pending.push({kx:{type:'rite',w:who(w)},t:`${w.name} entered the Videoke Showdown. Beat them in a raid to knock a song off their score, or flip their breaker (Brownout) from the Rivals tab.`,k:'omen'});
+  return true;
+}
+function spitMoon(w,why){
+  if(!w.rite) return false;
+  if(w.moons>0||w.chant>0||w.stand>0){
+    if(w.isPlayer){ensureStats();G.stats.struck=(G.stats.struck||0)+1;}
+    const had=w.moons; w.moons=Math.max(0,w.moons-1); w.chant=0; w.stand=0;
+    log(w.isPlayer?`${why} The judges strike off a song. You have ${w.moons} of 7.`:`${why} The judges strike off one of ${w.name}'s songs (${w.moons} of 7).`,'omen');
+    return had>w.moons||true;
+  }
+  return false;
+}
+function kalampag(a,t){
+  if(a.gold<50||!t.rite) return null;
+  a.gold-=50;
+  const ok=rnd()<.08&&(t.moons>0||t.chant>0);
+  if(ok) spitMoon(t,a.isPlayer?'Brownout! Their speakers die mid-song.':`${a.name} flips the breaker!`);
+  return ok;
+}
+
+/* ---- guardians ---- */
+function awaken(w){
+  if(w.g||w.tier<3||w.mana<AWAKEN_COST) return false;
+  w.mana-=AWAKEN_COST; w.g={lvl:1,wins:0,wound:0,cd:0};
+  const gd=GUARDIANS[w.school];
+  log(w.isPlayer?`${gd.name}, ${gd.title}, is on your side now.`:`${w.name} has called in ${gd.name}, ${gd.title}.`,w.isPlayer?'you':'omen');
+  if(w.isPlayer) UI.kq.push({type:'guardian',s:w.school,n:w.name,mine:true});
+  else if(hostile(P(),w)) G.pending.push({kx:{type:'guardian',s:w.school,n:w.name,mine:false},t:`${w.name} has called in ${gd.name}, ${gd.title}.`,k:'omen'});
+  return true;
+}
+function gWin(w){ if(!w.g)return; w.g.wins++; if(w.g.wins%3===0&&w.g.lvl<5){w.g.lvl++; if(w.isPlayer)log(`${GUARDIANS[w.school].name} is even more legendary now: level ${w.g.lvl}.`,'you');} }
+function useAbility(w,t){
+  const gd=GUARDIANS[w.school],ab=gd.ab;
+  if(!gReady(w)||w.g.cd>0||w.mana<ab.cost) return null;
+  if(ab.key==='sanct'&&w.rite) return null;
+  w.mana-=ab.cost; w.g.cd=G_COOLDOWN;
+  const out=[];
+  if(ab.key==='crater'){const n=Math.round(t.pop*.12);t.pop-=n;const k=Math.round(t.b.bastion*.08);t.b.bastion-=k;out.push(`${n} neighbors cleared out`,`${k} Gates towed away`);if(t.rite&&t.chant>0){t.chant=Math.max(0,t.chant-1);}}
+  if(ab.key==='chasm'){w.gStance=10;out.push('the next attacker will be swallowed by the sea');}
+  if(ab.key==='sanct'){let n=0;for(const x of w.lostB){for(const k in x.b){w.b[k]+=x.b[k];n+=x.b[k];}}w.lostB=[];trimBuildings(w);w.gSanct=10;out.push(`${n} buildings rebuilt`,'defense doubled for 10 turns');}
+  if(ab.key==='eclipse'){const m=Math.round(t.mana*.25);t.mana-=m;w.mana+=m;t.blind=15;if(!t.isPlayer){t.cd+=10;t.scd+=10;}out.push(`${m} load stolen`,'left on seen for 15 turns');}
+  if(ab.key==='radiance'){w.blind=0;if(w.rite&&!w.stand){w.chant=Math.min(MOON_TURNS,w.chant+3);if(w.chant>=MOON_TURNS)tryOffer(w);}out.push('you’re off seen-zone',w.rite?'your song surges ahead':'');}
+  const msg=`${ab.name}: ${out.filter(Boolean).join(', ')}.`;
+  if(!w.isPlayer){
+    log(`${w.name}'s ${gd.name} pulls a ${ab.name}${t?` on ${t.isPlayer?'you':t.name}`:''}.`,'magic');
+    if(t&&t.isPlayer) G.pending.push({t:`${w.name}'s ${gd.name} used ${ab.name} on you: ${out.join(', ')}.`,k:'magic'});
+  }
+  return msg;
+}
+
+function loseUnits(w,p){let t=0;for(const k in w.u){const n=Math.round(w.u[k]*p);w.u[k]-=n;t+=n;}return t;}
+function doBattle(a,d,frac,sendG=true){
+  const useG=sendG&&gReady(a);
+  const gD0=gReady(d)?d.school:null, lv0=a.g?a.g.lvl:0, la={}, ld={};
+  const L=(w,p,m)=>{let t=0;for(const k in w.u){const n=Math.round(w.u[k]*p);if(n>0){w.u[k]-=n;t+=n;m[k]=(m[k]||0)+n;}}return t;};
+  const fa=Object.keys(a.u).filter(k=>a.u[k]*frac>=1).map(k=>[k,Math.round(a.u[k]*frac),a.u[k]*UNITS[k].atk]).sort((x,y)=>y[2]-x[2]).slice(0,3).map(x=>[x[0],x[1]]);
+  const fd=Object.keys(d.u).filter(k=>d.u[k]>=1).map(k=>[k,Math.round(d.u[k]),d.u[k]*UNITS[k].def]).sort((x,y)=>y[2]-x[2]).slice(0,3).map(x=>[x[0],x[1]]);
+  let chasm=0;
+  if(d.gStance>0){chasm=L(a,frac*.15,la);d.gStance=0;}
+  const sigbin=(a.u.sigbin||0)>0;
+  const A=armyAtk(a,frac,useG)*(1+wheel(a,d))*(.85+rnd()*.3);
+  const D=(armyDef(d)-(sigbin?kutaDef(d)*.25:0))*(.9+rnd()*.2);
+  const r={a:a.name,d:d.name,A:Math.round(A),D:Math.round(D),win:A>D,land:0,aL:chasm,dL:0,chasm,g:useG};
+  if(r.win){
+    const ratio=A/Math.max(1,D), pct=Math.min(.15,.06+.03*(ratio-1));
+    const taken=Math.min(d.land,Math.max(3,Math.floor(d.land*pct))), lp=taken/d.land;
+    const lost={};for(const k in d.b){const n=Math.round(d.b[k]*lp);d.b[k]=Math.max(0,d.b[k]-n);if(n)lost[k]=n;}
+    d.lostB.push({d:G.day,b:lost});
+    d.land-=taken; a.land+=taken; d.pop*=(1-lp); r.land=taken;
+    r.aL+=L(a,frac*.07/Math.min(ratio,2),la); r.dL=L(d,.06*Math.min(ratio,2),ld);
+    if(useG) gWin(a);
+    if(d.rite){r.ritual=spitMoon(d,a.isPlayer?`You broke ${d.name}'s defenses.`:`${a.name} broke ${d.isPlayer?'your':d.name+"'s"} defenses.`);
+      if(d.shrine&&rnd()<.2){d.shrine=false;log(d.isPlayer?'Your Videoke Stage got wrecked! Rebuild it to keep singing.':`${d.name}'s Videoke Stage got wrecked.`,'war');r.shrine=true;}}
+  }else{
+    r.aL+=L(a,frac*.15,la); r.dL=L(d,.04,ld);
+    if(useG){a.g.wound=G_WOUND; if(a.isPlayer)log(`${GUARDIANS[a.school].name} got hurt and needs ${G_WOUND} turns of rest.`,'war');}
+    if(gReady(d)) gWin(d);
+  }
+  if(a.isPlayer||d.isPlayer){r.rec={day:G.day,a:who(a),d:who(d),win:r.win,land:r.land,aL:r.aL,dL:r.dL,A:r.A,D:r.D,rit:!!r.ritual,chasm,fa,fd,la,ld,kuta:d.b.bastion,gA:useG?a.school:null,gD:gD0,wh:wheel(a,d),sig:sigbin,shrine:!!r.shrine,gw:useG&&!r.win,glvl:(a.g&&a.g.lvl>lv0)?a.school:null};if((a.isPlayer&&r.win)||(d.isPlayer&&!r.win)){ensureStats();G.stats.wins++;}G.battles=G.battles||[];G.battles.unshift(r.rec);gcRaid(a,d,r.win);if(G.battles.length>40)G.battles.length=40;}
+  if(!a.isPlayer){
+    log(r.win?`${a.name} raided ${d.isPlayer?'your':d.name+'’s'} street and took ${r.land} lote.`:`${a.name} got chased off ${d.isPlayer?'your':d.name+'’s'} street.`,'war');
+    if(d.isPlayer) G.pending.push({kx:{type:'battle',b:r.rec},t:r.win?`${a.name} raided you and took ${r.land} lote. You lost ${r.dL} tropa.${r.ritual?' The judges struck off one of your songs.':''}`:`${a.name} raided you and got chased off. They lost ${r.aL} tropa; you lost ${r.dL}.`,k:'war'});
+  }
+  return r;
+}
+function castHex(c,t,k){
+  const sp=SPELLS[k], cost=hexCost(c,k);
+  c.mana-=cost;
+  const ok=rnd()<.85*(1-resist(t))*(1+wheel(c,t));
+  const r={ok,name:sp.name,t:t.name,fx:[]};
+  if(ok&&c.isPlayer){ensureStats();G.stats.curses++;}
+  if(ok){
+    const f=sp.fx;
+    if(f.pop){const n=Math.round(t.pop*f.pop);t.pop-=n;r.fx.push(`${n} neighbors moved out`);}
+    if(f.units){const n=loseUnits(t,f.units);r.fx.push(`${n} tropa lost`);}
+    if(f.bld){let n=0;const lost={};for(const b in t.b){const x=Math.round(t.b[b]*f.bld);t.b[b]-=x;n+=x;if(x)lost[b]=x;}t.lostB.push({d:G.day,b:lost});r.fx.push(`${n} buildings cleared`);}
+    if(f.mana){const n=Math.round(t.mana*f.mana);t.mana-=n;r.fx.push(`${n} load drained`);}
+    if(f.steal){const n=Math.round(t.mana*f.steal);t.mana-=n;c.mana+=n;r.fx.push(`${n} load taken`);}
+    if(f.ritual&&t.rite&&!t.stand&&t.chant>0){t.chant=Math.max(0,t.chant-(f.ritual>=20?3:1));r.fx.push('their song went off key');}
+  }
+  if(!c.isPlayer){
+    log(ok?`${c.name} hit ${t.isPlayer?'you':t.name} with ${sp.name}.`:`${t.isPlayer?'Your':t.name+'’s'} blocks shrugged off ${c.name}’s ${sp.name}.`,'magic');
+    if(t.isPlayer) G.pending.push({kx:{type:'curse',c:who(c),t:who(t),sp:k,ok,fx:r.fx.join(', ')},t:ok?`${c.name} hit you with ${sp.name}: ${r.fx.join(', ')||'no effect'}.`:`Your blocks shrugged off ${c.name}’s ${sp.name}.`,k:'magic'});
+  }
+  return r;
+}
+function castSelf(w,k){
+  const sp=SPELLS[k]; w.mana-=sp.cost;
+  if(sp.type==='ench'){w.ench[k]=sp.dur;return `${sp.name} is on for ${sp.dur} turns.`;}
+  if(sp.fx.land){const n=Math.max(3,Math.round(w.land*sp.fx.land));w.land+=n;return `Lolo’s lot is finally yours: +${n} lote.`;}
+  if(sp.fx.ghouls){const n=10+Math.floor(w.land/8);w.u.ghoul=(w.u.ghoul||0)+n;return `${n} Marites join the group chat.`;}
+  return '';
+}
+function bestUnit(w){const l=SCHOOL_UNITS[w.school];for(let i=2;i>=0;i--)if(unitUnlocked(w,l[i]))return l[i];return null;}
+function bestHex(w){const l=Object.keys(SPELLS).filter(k=>SPELLS[k].type==='hex'&&spellKnown(w,k));return l.length?l[l.length-1]:null;}
+
+/* AI */
+const PERSONA_W={builder:{farm:3,market:3,well:2,library:2,bastion:1},warlord:{farm:2,market:3,well:2,library:1,bastion:2},sage:{farm:2,market:2,well:3,library:3,bastion:1}};
+function aiBuild(a){
+  const W=PERSONA_W[a.persona],keys=Object.keys(W),tot=keys.reduce((s,k)=>s+W[k],0);
+  let n=Math.min(buildRate(a),freeLand(a));
+  while(n-->0){
+    let r=rnd()*tot,k=keys[0];for(const x of keys){r-=W[x];if(r<=0){k=x;break;}}
+    const c=BUILDINGS.find(b=>b.k===k).cost; if(a.gold<c)break; a.gold-=c; a.b[k]++;
+  }
+}
+function aiTurn(a){
+  if(!a.alive) return;
+  if(a.cd>0)a.cd--; if(a.scd>0)a.scd--;
+  aiAct(a,DIFFS[G.diff]);
+  tick(a);
+}
+function aiWorkOffer(a){
+  const o=OFFER[a.moons+1]; if(!o) return false;
+  if(o.t==='mana'){meditate(a);return true;}
+  if(o.t==='beast'){const k=SCHOOL_UNITS[a.school][2];if(a.mana>=UNITS[k].mana){a.mana-=UNITS[k].mana;a.u[k]=(a.u[k]||0)+1;return true;}meditate(a);return true;}
+  if(o.t==='land'){if(explore(a))return true;earn(a);return true;}
+  if(o.t==='guardian'){if(!a.g){if(!awaken(a))meditate(a);}else meditate(a);return true;}
+  return false;
+}
+function aiAct(a,D){
+  const hostiles=allW().filter(t=>t.alive&&hostile(a,t));
+  // the race comes first
+  if(a.rite&&a.shrine&&rnd()<.75){
+    if(a.stand>0){meditate(a);return;}
+    if(a.chant>=MOON_TURNS){ if(tryOffer(a)!==true) aiWorkOffer(a); return; }
+    if(!chant(a)) meditate(a); return;
+  }
+  if(a.rite&&!a.shrine&&a.gold>=SHRINE_COST&&rnd()<.5){buildShrine(a);return;}
+  const chanters=hostiles.filter(t=>t.rite&&(t.moons>0||t.chant>0||t.stand>0)).sort((x,y)=>(y.moons*10+y.chant)-(x.moons*10+x.chant));
+  const caster=chanters[0];
+  if(caster&&rnd()<.6){
+    if(a.cd===0&&G.day>=PROTECT&&armyAtk(a,.8)>armyDef(caster)*.75){doBattle(a,caster,.8);a.cd=Math.round(8/D.aggr);return;}
+    const hx=bestHex(a); if(hx&&a.scd===0&&a.mana>=hexCost(a,hx)){castHex(a,caster,hx);a.scd=6;return;}
+    if(caster.moons>=4&&a.gold>=50&&rnd()<.5){kalampag(a,caster);return;}
+  }
+  // guardians
+  if(a.tier>=3&&!a.g&&a.mana>=AWAKEN_COST+200&&rnd()<.2){awaken(a);return;}
+  if(gReady(a)&&a.g.cd===0&&a.mana>=GUARDIANS[a.school].ab.cost*1.3&&rnd()<.08){
+    const ab=GUARDIANS[a.school].ab;
+    if(ab.target){const t=caster||pick(hostiles);if(t&&G.day>=PROTECT){useAbility(a,t);return;}}
+    else if(ab.key==='sanct'?(!a.rite&&a.lostB.length):ab.key==='radiance'?a.rite:true){useAbility(a,null);return;}
+  }
+  // shrine and rite
+  const busy=allW().filter(w=>w.alive&&w.rite).length;
+  if(a.tier>=4&&!a.shrine&&a.gold>=SHRINE_COST+300&&freeLand(a)>=1&&rnd()<.3){buildShrine(a);return;}
+  if(a.tier>=4&&a.shrine&&!a.rite&&G.day>=200&&busy<3&&rnd()<.05*D.aggr){beginRitual(a);return;}
+  if(a.cd===0&&G.day>=PROTECT&&rnd()<.12*D.aggr){
+    const myA=armyAtk(a,.8), tg=hostiles.filter(t=>armyDef(t)*1.05<myA);
+    if(tg.length){
+      tg.sort((x,y)=>armyDef(x)-armyDef(y));
+      const t=(tg.includes(G.player)&&rnd()<.45)?G.player:tg[0];
+      doBattle(a,t,.8); a.cd=Math.round(16/D.aggr); return;
+    }
+  }
+  if(a.tier>=2&&a.scd===0&&rnd()<.05*D.aggr){
+    const hx=bestHex(a),t=pick(hostiles);
+    if(hx&&t&&a.mana>=hexCost(a,hx)*1.5){castHex(a,t,hx);a.scd=Math.round(20/D.aggr);return;}
+  }
+  if(rnd()<.04){
+    const own=Object.keys(SPELLS).find(k=>SPELLS[k].school===a.school&&SPELLS[k].tier===1);
+    if(own&&!a.ench[own]&&a.mana>=SPELLS[own].cost*2){castSelf(a,own);return;}
+  }
+  const keep=(a.tier>=3&&!a.g?AWAKEN_COST:0)+(a.tier>=4&&a.persona!=='warlord'?2400:0);
+  if(a.gold>4000&&rnd()<.4){const q=Math.floor(a.gold*.5/55);a.gold-=q*55;a.u.archer+=q;return;}
+  if(a.mana>4000+keep&&rnd()<.4){const u=bestUnit(a);const q=Math.floor((a.mana-keep)*.5/UNITS[u].mana);if(q>0){a.mana-=q*UNITS[u].mana;a.u[u]=(a.u[u]||0)+q;return;}}
+  if(freeLand(a)>0&&a.gold>=150){aiBuild(a);return;}
+  if(a.gold>exploreCostPer(a)*acresPerTurn(a)*1.3&&rnd()<.7){explore(a);return;}
+  const u=bestUnit(a);
+  if(u&&a.mana>300+keep&&a.mana>UNITS[u].mana*4&&rnd()<.5){
+    const q=Math.floor((a.mana-keep)*.55/UNITS[u].mana);if(q>0){a.mana-=q*UNITS[u].mana;a.u[u]=(a.u[u]||0)+q;return;}
+  }
+  if(a.gold>900&&rnd()<.6){const q=Math.floor(a.gold*.4/55);a.gold-=q*55;a.u.archer+=q;return;}
+  if(a.tier<4&&rnd()<(a.persona==='sage'?.7:.45)){study(a);return;}
+  if(a.mana<400+keep) meditate(a); else earn(a);
+}
+
+/* world resolution */
+function resolveState(){
+  for(const w of allW()){
+    if(w.alive&&w.land<FALL_LAND){
+      w.alive=false; w.rite=false; w.moons=0; w.chant=0; w.stand=0;
+      if(!w.isPlayer) gcPost(w,pick(GC_EV.evicted));
+      log(w.isPlayer?'You’ve been evicted. Time to move back in with your parents.':`${w.name} has been evicted. Their house is now for rent.`,'fall');
+      if(!w.isPlayer) G.pending.push({kx:{type:'fall',w:who(w)},t:`${w.name} has been evicted.`,k:'fall'});
+    }
+  }
+  if(!P().alive){G.over={win:false,why:'You were evicted from the barangay. Your electric fan goes back to its owner.'};return;}
+  for(const w of allW()){
+    if(w.alive&&w.moons>=7){
+      const friendly=w.isPlayer||w.ally;
+      G.over={win:friendly,why:w.isPlayer?'Seven perfect 100s! The barangay crowns you Videoke Grand Champion, and the whole street has lost its voice from cheering.':w.ally?`Your kumpare ${w.name} won the Videoke Showdown. You share the trophy (and the hangover).`:`${w.name} scored seven perfect 100s and took the crown. You will hear them sing it every night for a year.`};
+      return;
+    }
+  }
+  if(G.rivals.filter(r=>r.alive&&hostile(P(),r)).length===0){G.over={win:true,why:'Every rival household has moved out. The barangay is yours, and so is the parking.'};return;}
+  if(G.day>=SEASON){
+    const rank=allW().filter(w=>w.alive).sort((x,y)=>(y.moons-x.moons)||(power(y)-power(x)));
+    const top=rank[0];
+    const by=top.moons>0?`with ${top.moons} of 7 perfect songs`:'with the most clout';
+    G.over={win:top.isPlayer||top.ally,why:`Day ${SEASON}: the fiesta finale. `+(top.isPlayer?`The crown goes to you, ${by}.`:top.ally?`The crown goes to your kumpare ${top.name}, ${by}.`:`The crown goes to ${top.name}, ${by}.`)};
+  }
+}
+function runTurns(n,perTurn){
+  let used=0,flag=null;
+  for(let i=0;i<n&&!G.over;i++){
+    if(perTurn&&perTurn(i)===false)break;
+    const f=tick(P()); if(f)flag=f;
+    for(const a of G.rivals) aiTurn(a); gcTick();
+    G.day++; G.bank--; used++;
+    if(G.day>=90&&G.day%100===90){log('Ten days until Sweldo Week. Singing will count double for 10 turns.','omen');G.pending.push({kx:{type:'eclipse',soon:true},t:'Sweldo Week starts in 10 days. Everyone’s in a good mood, so for 10 turns every turn of singing counts double.',k:'omen'});}
+    if(G.day>=100&&G.day%100===0){log('Sweldo Week begins. Singing counts double for 10 turns.','omen');{const r=gcRival();if(r)gcPost(r,pick(GC_EV.sweldo));}}
+    resolveState();
+  }
+  if(flag) log(flag==='gold'?'You went broke and some tropa walked off.':flag==='mana'?'You ran out of load and some tropa stopped replying.':'No pesos, no load. Part of your tropa left you on read.','you');
+  return used;
+}
+
+/* ============ UI ============ */
+const UI={kq:[],fx:(()=>{try{return localStorage.getItem('bahalana-fx')||'full';}catch(e){return 'full';}})(),lastTab:null,tab:'realm',count:5,bq:{},rq:{},setup:{name:'',school:'ember',mode:'blitz',diff:'adept',variant:'solo'}};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=n=>{n=Math.floor(n);return n>=100000?(n/1000).toFixed(0)+'k':n>=10000?(n/1000).toFixed(1)+'k':n.toLocaleString('en-US');};
+const sg=n=>(n<0?'−':'+')+fmt(Math.abs(n));
+const SAVE='bahalana-save-v1';
+function save(){try{localStorage.setItem(SAVE,JSON.stringify(G));}catch(e){}}
+function load(){try{const s=localStorage.getItem(SAVE);if(s){const g=JSON.parse(s);if(g&&(g.v===1||g.v===2))return migrate(g);}}catch(e){}return null;}
+function wipe(){try{localStorage.removeItem(SAVE);}catch(e){}}
+
+function toast(t){const o=$('.toast');if(o)o.remove();const d=document.createElement('div');d.className='toast';d.setAttribute('role','status');d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600);}
+let modalRes=null;
+function modal(title,html,buttons=[{t:'Close'}]){
+  closeModal();
+  const pr=new Promise(r=>modalRes=r);
+  const s=document.createElement('div');s.className='scrim';s.id='scrim';
+  s.innerHTML=`<div class="sheet" role="dialog" aria-modal="true" aria-label="${esc(title)}"><h2>${esc(title)}</h2>${html}<div class="btns">${buttons.map((b,i)=>`<button class="btn ${b.cls||''}" data-mb="${i}">${esc(b.t)}</button>`).join('')}</div></div>`;
+  s.addEventListener('click',e=>{if(e.target===s)closeModal();const i=e.target.closest('[data-mb]');if(i){const b=buttons[+i.dataset.mb];closeModal();if(b.fn)b.fn();}});
+  document.body.appendChild(s);
+  const f=s.querySelector('[data-mb]');if(f)f.focus();
+  return pr;
+}
+function closeModal(){const s=$('#scrim');if(s)s.remove();if(modalRes){const r=modalRes;modalRes=null;r();}}
+
+function setSchoolColor(){document.documentElement.style.setProperty('--school',SCHOOLS[G?P().school:UI.setup.school].color);}
+
+/* sigil */
+function arc(cx,cy,r,a0,a1){const p=a=>[cx+r*Math.cos((a-90)*Math.PI/180),cy+r*Math.sin((a-90)*Math.PI/180)];const[s,t]=[p(a0),p(a1)];return `M${s[0].toFixed(1)} ${s[1].toFixed(1)} A${r} ${r} 0 ${a1-a0>180?1:0} 1 ${t[0].toFixed(1)} ${t[1].toFixed(1)}`;}
+const GLYPH={
+  ember:'<path d="M120 88 L128 111 L152 111 L133 126 L140 150 L120 136 L100 150 L107 126 L88 111 L112 111 Z"/>',
+  tide:'<path d="M96 108 H144 L148 150 H92 Z"/><path d="M108 108 V101 a12 12 0 0 1 24 0 V108" fill="none" stroke-width="5"/>',
+  verdant:'<path d="M120 86 L154 116 H145 V152 H95 V116 H86 Z"/><rect x="112" y="128" width="16" height="24" fill="var(--surface)" stroke="none"/>',
+  gloam:'<path d="M92 96 H148 a8 8 0 0 1 8 8 V130 a8 8 0 0 1 -8 8 H120 L102 154 V138 H92 a8 8 0 0 1 -8 -8 V104 a8 8 0 0 1 8 -8 Z"/><g fill="var(--surface)" stroke="none"><circle cx="105" cy="117" r="4.5"/><circle cx="120" cy="117" r="4.5"/><circle cx="135" cy="117" r="4.5"/></g>',
+  dawn:'<circle cx="120" cy="120" r="29" fill="none" stroke-width="7"/><circle cx="120" cy="120" r="8"/><path d="M92 120 H148 M120 126 V149" fill="none" stroke-width="6"/>'
+};
+function flagsSVG(){const c=SKEYS.map(k=>SCHOOLS[k].color);let f='';for(let i=0;i<22;i++){const x=i*26;f+=`<path d="M${x+2} 6 L${x+24} 6 L${x+13} ${22+(i%2)*4} Z" fill="${c[i%5]}"/>`;}return `<svg class="flags" viewBox="0 0 572 34" preserveAspectRatio="xMidYMin slice" aria-hidden="true"><path d="M0 6 L572 6" stroke="var(--dim)" stroke-width="1.5" fill="none"/>${f}</svg>`;}
+function sigilSVG(w){
+  const sc=SCHOOLS[w.school].color;
+  const outer=SKEYS.map((k,i)=>`<path d="${arc(120,120,108,i*72+4,i*72+68)}" stroke="${SCHOOLS[k].color}" stroke-width="7" fill="none" opacity="${k===w.school?1:.22}" stroke-linecap="round"/>`).join('');
+  const gone=w.moons;
+  const moons=[0,1,2,3,4,5,6].map(i=>{const t=(i*360/7-90)*Math.PI/180,x=(120+93*Math.cos(t)).toFixed(1),y=(120+93*Math.sin(t)).toFixed(1);return i<gone?`<circle cx="${x}" cy="${y}" r="6" fill="var(--gold)"/>`:`<circle cx="${x}" cy="${y}" r="5.5" fill="none" stroke="var(--dim)" stroke-width="1.5"/>`;}).join('');
+  const tiers=[0,1,2,3].map(i=>`<path d="${arc(120,120,80,i*90+6,i*90+84)}" stroke="${w.tier>i?'var(--gold)':'var(--line)'}" stroke-width="5" fill="none"/>`).join('');
+  const rp=w.rite?(w.stand>0?100:w.chant/MOON_TURNS*100):0, C=2*Math.PI*64;
+  return `<svg class="sigil" viewBox="0 0 240 240" role="img" aria-label="Your badge: rank ${w.tier} of 4, ${w.moons} of 7 perfect songs">
+  <g class="spin">${outer}</g>${moons}
+  ${tiers}
+  <circle cx="120" cy="120" r="64" stroke="var(--line)" stroke-width="2" fill="none"/>
+  ${rp>0?'':'<!--'}<circle cx="120" cy="120" r="64" stroke="${sc}" stroke-width="6" fill="none" stroke-dasharray="${(C*rp/100).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 120 120)" stroke-linecap="round"/>${rp>0?'':'-->'}
+  <g fill="${sc}" stroke="${sc}">${GLYPH[w.school]}</g></svg>`;
+}
+function moonRow(w){return `<span class="moons" role="img" aria-label="${w.moons} of 7 perfect songs">${[0,1,2,3,4,5,6].map(i=>`<i class="${i<w.moons?'gone':''}"></i>`).join('')}</span>`;}
+function eclipseBanner(){
+  if(eclipseNow())return `<div class="eclipse">Sweldo Week · singing counts double for ${10-G.day%100} more turn${10-G.day%100===1?'':'s'}</div>`;
+  if(eclipseSoon())return `<div class="eclipse soon">Sweldo Week starts in ${100-G.day%100} day${100-G.day%100===1?'':'s'}</div>`;
+  return '';
+}
+/* top-level render */
+function render(){
+  setSchoolColor();
+  const app=$('#app');
+  if(!G){app.innerHTML=renderSetup();bindSetup();return;}
+  if(G.over){const t=$('.toast');if(t)t.remove();app.innerHTML=renderEnd();$('#again').onclick=()=>{wipe();G=null;render();};return;}
+  const p=P();
+  app.innerHTML=`
+  <header class="top">
+    <div class="top-row">
+      <span class="crest" aria-hidden="true"></span>
+      <div class="who"><h1>${esc(p.name)}</h1><small>${SCHOOLS[p.school].name} · Day ${G.day}/${SEASON}${p.rite?` · ${p.moons}/7 songs`:''}</small></div>
+      <div class="bank" aria-live="polite"><b id="bankN">${G.bank}</b><small id="bankT">turns</small></div>
+      <button class="iconbtn" id="menuBtn" aria-label="Menu">☰</button>
+    </div>
+    <div class="res">
+      <div><span>Pesos</span>${fmt(p.gold)}</div>
+      <div><span>Load</span>${fmt(p.mana)}</div>
+      <div><span>Lote</span>${fmt(p.land)}</div>
+      <div><span>Neighbors</span>${fmt(p.pop)}</div>
+      <div><span>Clout</span>${fmt(power(p))}</div>
+    </div>
+  </header>
+  <main id="main">${({realm:renderRealm,build:renderBuild,legion:renderLegion,magic:renderMagic,war:renderWar,log:renderLog})[UI.tab]()}</main>
+  <nav class="tabs" role="tablist">${[['realm','Barangay','⌂'],['build','Build','▦'],['legion','Tropa','✊'],['magic','Moves','✶'],['war','Rivals','⚑'],['log','Balita','☰']].map(([k,l,i])=>`<button role="tab" aria-selected="${UI.tab===k}" data-tab="${k}"><i aria-hidden="true">${i}</i>${l}</button>`).join('')}</nav>`;
+  if(UI.lastTab&&UI.lastTab!==UI.tab)$('#main').classList.add('swap');
+  UI.lastTab=UI.tab;
+  bindGame();
+  updateBank();
+  if(!UI.snap)UI.snap=snapRes();
+}
+
+function renderSetup(){
+  const s=UI.setup;
+  const seg=(key,opts)=>`<div class="seg" role="group">${opts.map(([v,l])=>`<button data-seg="${key}" data-v="${v}" aria-pressed="${s[key]===v}">${l}</button>`).join('')}</div>`;
+  return `<div class="setup">
+    ${ART['key-art']?`<img class="keyart" src="${ART['key-art']}" alt="">`:flagsSVG()}
+    <div class="title"><div class="credit">Mark’s</div><h1>Bahala Na!</h1><div class="baybayin">The barangay survival game</div><p>You just moved into Barangay Bagong Pag-asa with ₱1,000, a borrowed electric fan and big dreams. Five rival households want the same thing you do: the Fiesta Videoke Grand Champion crown.</p></div>
+    <div class="field"><label for="wname">Your name</label><input type="text" id="wname" maxlength="28" placeholder="e.g. Ate Joy" value="${esc(s.name)}"></div>
+    <div class="field"><span class="lbl">Your crew</span><div class="schools">${SKEYS.map(k=>`<button class="sch-opt" style="--c:${SCHOOLS[k].color}" data-school="${k}" aria-pressed="${s.school===k}"><i></i><b>${SCHOOLS[k].name}</b><span>${SCHOOLS[k].blurb} ${SCHOOLS[k].passive}</span></button>`).join('')}</div></div>
+    <div class="field"><span class="lbl">Turn pace</span>${seg('mode',[['blitz','Blitz'],['steady','Steady']])}<div class="seg-note">${MODES[s.mode].note}</div></div>
+    <div class="field"><span class="lbl">Rivals</span>${seg('diff',[['apprentice','Chill'],['adept','Sakto'],['archon','Hardcore']])}<div class="seg-note">${s.diff==='apprentice'?'Gentle rivals who sleep in.':s.diff==='adept'?'A fair fight.':'Rich, petty rivals who raid often.'}</div></div>
+    <div class="field"><span class="lbl">Variant</span>${seg('variant',[['solo','Solo'],['covenant','Kumpare']])}<div class="seg-note">${s.variant==='solo'?'Every household for itself.':'One rival is your kumpare. They never raid you, and you win together.'}</div></div>
+    <button class="btn sch" id="startBtn" style="width:100%;padding:13px;font-size:1.05rem;margin-top:8px">Lipat-bahay na!</button>
+    <p class="byline">A game by Mark</p>
+  </div>`;
+}
+function bindSetup(){
+  $('#wname').addEventListener('input',e=>UI.setup.name=e.target.value);
+  document.querySelectorAll('[data-school]').forEach(b=>b.onclick=()=>{UI.setup.school=b.dataset.school;render();});
+  document.querySelectorAll('[data-seg]').forEach(b=>b.onclick=()=>{UI.setup[b.dataset.seg]=b.dataset.v;render();});
+  $('#startBtn').onclick=async()=>{newGame({...UI.setup,name:UI.setup.name.trim()});save();UI.tab='realm';render();
+    await (ART['bg-move-in']?showScene({art:'bg-move-in',tall:1,c:SCHOOLS[P().school].color,kicker:'Unang araw',title:'Lipat-bahay',sub:'Moving day',text:`${esc(P().name)} arrives with a jeepney full of boxes, a borrowed electric fan, and big plans. The neighbors are already peeking through their curtains.`,btn:'Tara na ▸'}):playKx({type:'start'}));
+    modal('Your first days',`<p>You have ${G.bank} turns banked; more arrive over time. Every action spends turns, and your rivals act on each turn you spend.</p><p>A barangay ordinance bans raids for the first ${PROTECT} days. Build on your free lote, expand for more, and learn diskarte to unlock better tropa and moves.</p><p>Win by outlasting every rival household, or by scoring seven perfect 100s at the Videoke Showdown.</p>`,[{t:'Kaya ko ’to',cls:'sch'}]);};
+}
+function renderEnd(){
+  const ea=G.over.win?'victory':'defeat';
+  return `<div class="endcard setup">${ART[ea]?`<img class="endart" src="${ART[ea]}" alt="">`:''}<h1>${G.over.win?'Panalo!':'Talo!'}</h1><p>${esc(G.over.why)}</p>
+  <p style="color:var(--dim)">Day ${G.day}. Final clout ${fmt(power(P()))}.</p>
+  <div class="rows" style="text-align:left;margin:18px 0">${allW().sort((a,b)=>(b.moons-a.moons)||(power(b)-power(a))).map(w=>`<div class="row" style="--tint:${SCHOOLS[w.school].color}"><div><h3>${esc(w.name)}${w.isPlayer?' <span class="tag">you</span>':''}${!w.alive?' <span class="tag">evicted</span>':''}</h3><div class="meta">${SCHOOLS[w.school].name} · ${fmt(w.land)} lote · ${moonRow(w)}</div></div><div class="side count">${fmt(power(w))}</div></div>`).join('')}</div>
+  <p class="note">Badges earned: <b>${(G.badges||[]).length}</b> of ${BADGES.length}</p><button class="btn sch" id="again">Lipat-bahay ulit</button><p class="byline">Mark’s Bahala Na! · A game by Mark</p></div>`;
+}
+/* REALM */
+function renderRealm(){
+  const p=P(),n=UI.count;
+  const cost=Math.round(exploreCostPer(p)*acresPerTurn(p));
+  const tierNext=p.tier<4?TIER_RP[p.tier+1]:null;
+  const ch=G.rivals.filter(r=>r.alive&&r.rite&&hostile(p,r)).sort((x,y)=>(y.stand?99:y.moons*10+y.chant)-(x.stand?99:x.moons*10+x.chant))[0];
+  return `${eclipseBanner()}${ch?`<div class="ritual" style="--school:${SCHOOLS[ch.school].color}"><h3>${esc(ch.name)} is going for the crown</h3>${moonRow(ch)}<div class="note">${ch.stand?`Encore: ${ch.stand} turn${ch.stand>1?'s':''} left. Raid them now!`:`${ch.moons} of 7 perfect songs.`} Win a raid against them to knock a song off their score, or flip their breaker from the Rivals tab.</div></div>`:''}
+  <div class="sigil-wrap${ART['bg-barangay']?' scene':''}"${ART['bg-barangay']?` style="background-image:url(${ART['bg-barangay']})"`:''}>${sigilSVG(p)}</div>
+  <div class="realm-line">Rank <b>${p.tier}</b> of 4 · ${tierNext?`diskarte <b>${Math.floor(p.rp)}</b> / ${tierNext}`:'diskarte maxed'} · songs <b>${p.moons}</b> / 7 · income <b>${sg(goldIncome(p)-upkeep(p).g)}</b> pesos, <b>${sg(manaIncome(p)-upkeep(p).m)}</b> load</div>
+  ${raceCard()}
+  <div class="sect"><h2>Spend turns</h2><small>Rivals act on every turn you spend</small></div>
+  <div class="chips" role="group" aria-label="Turns to spend">${[1,5,10,25].map(c=>`<button class="chip" data-count="${c}" aria-pressed="${n===c}">${c} turn${c>1?'s':''}</button>`).join('')}</div>
+  <div class="acts">
+    <button class="act" data-do="explore"><b>Expand</b><span>+${acresPerTurn(p)} lote a turn for ₱${fmt(cost)}</span></button>
+    <button class="act" data-do="earn"><b>Raket</b><span>Side hustle: +₱${fmt(p.pop*.15)} a turn</span></button>
+    <button class="act" data-do="meditate"><b>Pa-load</b><span>+${fmt(12+p.b.well*6)} extra load a turn</span></button>
+    <button class="act" data-do="study"><b>Learn diskarte</b><span>+${10+p.b.library*2} diskarte a turn</span></button>
+  </div>
+  <p class="note" style="margin-top:12px">Free lote: <b style="color:var(--ink)">${freeLand(p)}</b>, ready for the Build tab. Neighbors fill your lote and boarding houses over time and chip in each turn.</p>
+  ${gcCard()}
+  ${questCard()}`;
+}
+function doActivity(kind){
+  const n=UI.count,p=P();
+  if(G.bank<1)return toast('No turns left. Wait for more to arrive.');
+  const use=Math.min(n,G.bank);
+  let total=0;
+  const used=runTurns(use,()=>{const r=({explore,earn,meditate,study})[kind](p);if(r===false)return false;total+=r;});
+  if(!used) return toast(kind==='explore'?'Not enough pesos to expand.':'Nothing happened.');
+  const msg={explore:`Expanded for ${used} turn${used>1?'s':''}: +${total} lote.`,earn:`Hustled for ${used} turn${used>1?'s':''}: +₱${fmt(total)}.`,meditate:`Loaded up for ${used} turn${used>1?'s':''}: +${fmt(total)} load.`,study:`Learned for ${used} turn${used>1?'s':''}: +${fmt(total)} diskarte.`}[kind];
+  log(msg,'you'); after(msg);
+  
+}
+
+/* BUILD */
+function renderBuild(){
+  const p=P(),q=UI.bq;
+  const totQ=BUILDINGS.reduce((s,b)=>s+(q[b.k]||0),0), cost=BUILDINGS.reduce((s,b)=>s+(q[b.k]||0)*b.cost,0);
+  const turns=totQ?Math.ceil(totQ/buildRate(p)):0;
+  return `<div class="sect"><h2>Build</h2><small>${freeLand(p)} free lote · ${buildRate(p)} per turn</small></div>
+  <p class="note">Each building takes one lote. Expand from the Barangay tab for more room.</p>
+  <div class="rows">${BUILDINGS.map(b=>`<div class="row" style="--tint:var(--gold)">
+    <div><h3>${b.name} <span class="count" style="font-size:1rem;color:var(--dim)">×${p.b[b.k]}</span></h3><div class="meta">${b.desc} <b>₱${b.cost}</b></div></div>
+    <div class="side"><div class="stepper"><button data-bq="${b.k}" data-d="-1" aria-label="Fewer ${b.name}">−</button><input inputmode="numeric" aria-label="${b.name} to build" data-bqi="${b.k}" value="${q[b.k]||0}"><button data-bq="${b.k}" data-d="1" aria-label="More ${b.name}">+</button></div></div>
+  </div>`).join('')}
+  <div class="row" style="--tint:var(--school)"><div><h3>Videoke Stage ${p.shrine?'<span class="tag ally">built</span>':''}</h3><div class="meta">Speakers, a mic, and a screen playing random beach videos. You need it for the Videoke Showdown, and raids while you sing can wreck it. One per household. <b>₱${fmt(SHRINE_COST)}</b>, 1 lote, 1 turn.</div></div>
+  <div class="side">${p.shrine?'':p.tier<4?'<span class="tag">rank 4</span>':'<button class="btn small" id="shrineBtn">Build</button>'}</div></div></div>
+  <div class="bar-foot"><div><b>${totQ}</b> to build · ₱${fmt(cost)}<br><small>${turns} turn${turns===1?'':'s'}</small></div>
+  <div style="display:flex;gap:6px"><button class="btn ghost small" id="bFill">Fill lote</button><button class="btn" id="bGo" ${totQ?'':'disabled'}>Build</button></div></div>`;
+}
+function doBuild(){
+  const p=P(),q=UI.bq;
+  const tot=BUILDINGS.reduce((s,b)=>s+(q[b.k]||0),0), cost=BUILDINGS.reduce((s,b)=>s+(q[b.k]||0)*b.cost,0);
+  if(!tot)return;
+  if(tot>freeLand(p))return toast(`You only have ${freeLand(p)} free lote.`);
+  if(cost>p.gold)return toast(`That costs ₱${fmt(cost)}. You have ₱${fmt(p.gold)}.`);
+  const turns=Math.ceil(tot/buildRate(p));
+  if(G.bank<turns)return toast(`That needs ${turns} turns. You have ${G.bank}.`);
+  p.gold-=cost; for(const b of BUILDINGS)p.b[b.k]+=(q[b.k]||0);
+  runTurns(turns);
+  const msg=`Built ${tot} building${tot>1?'s':''} over ${turns} turn${turns>1?'s':''}.`;
+  log(msg,'you'); UI.bq={}; after(msg); 
+}
+function fillLand(){
+  const p=P(); let free=freeLand(p), gold=p.gold; UI.bq={};
+  const mix=['farm','market','market','well','library','farm','well','bastion'];
+  let i=0,guard=0;
+  while(free>0&&guard++<2000){const k=mix[i++%mix.length],c=BUILDINGS.find(b=>b.k===k).cost;if(gold<c)break;gold-=c;free--;UI.bq[k]=(UI.bq[k]||0)+1;}
+  render();
+}
+
+/* LEGION */
+function guardianArt(s,cls='gart'){
+  const gd=GUARDIANS[s],a=ART[gd.art];
+  return a?`<img class="${cls}" src="${a}" alt="${esc(gd.name)}, ${esc(gd.title)}">`:`<div class="${cls} gph" style="--c:${SCHOOLS[s].color}"><span>Art to follow</span></div>`;
+}
+function guardianCard(p){
+  const gd=GUARDIANS[p.school];
+  if(!p.g) return `<div class="gcard sleeping">${guardianArt(p.school)}<div class="gbody"><h3>${esc(gd.name)}</h3><div class="meta">${esc(gd.title)} · Lodi of the ${SCHOOLS[p.school].name} · not here yet</div><p class="note">${gd.passive}</p>${p.tier<3?'<span class="tag">Arrives at rank 3</span>':`<button class="btn sch" id="awakenBtn">Call your Lodi · ${fmt(AWAKEN_COST)} load · ${AWAKEN_TURNS} turns</button>`}</div></div>`;
+  const st=p.g.wound?`<span class="tag hot">resting · ${p.g.wound} turns</span>`:'<span class="tag ally">ready</span>';
+  const toLvl=p.g.lvl>=5?'Max level.':`${3-(p.g.wins%3)} more win${3-(p.g.wins%3)===1?'':'s'} with it present to reach level ${p.g.lvl+1}.`;
+  return `<div class="gcard">${guardianArt(p.school)}<div class="gbody"><h3>${esc(gd.name)} ${st}</h3>
+  <div class="meta">${esc(gd.title)} · level <b>${p.g.lvl}</b> <span class="stars" aria-label="level ${p.g.lvl} of 5">${'★'.repeat(p.g.lvl)}${'☆'.repeat(5-p.g.lvl)}</span></div>
+  <div class="meta">Fights as attack <b>${fmt(20*p.g.lvl*gd.atk)}</b> · defense <b>${fmt(20*p.g.lvl*gd.def)}</b>. ${toLvl}</div>
+  <p class="note">${gd.passive}</p>
+  <div class="abil"><div><b>${gd.ab.name}</b> · ${gd.ab.cost} load · every ${G_COOLDOWN} turns<div class="meta">${gd.ab.desc}</div></div><button class="btn small sch" id="abilBtn" ${(!gReady(p)||p.g.cd>0)?'disabled':''}>${p.g.cd>0?`In ${p.g.cd}`:'Use'}</button></div></div></div>`;
+}
+function renderLegion(){
+  const p=P(), up=upkeep(p);
+  const keys=unitsOf(p);
+  return `${guardianCard(p)}
+  <div class="stats"><div><b>${fmt(armyAtk(p))}</b><span>Attack</span></div><div><b>${fmt(armyDef(p))}</b><span>Defense</span></div><div><b>−₱${fmt(up.g)}</b><span>−${fmt(up.m)} load a turn</span></div></div>
+  <div class="sect"><h2>Your tropa</h2><small>Each order takes 1 turn</small></div>
+  <div class="rows">${keys.map(k=>{const u=UNITS[k],ok=unitUnlocked(p,k),c=p.u[k]||0,cost=u.gold?`₱${u.gold}`:`${u.mana} load`,a=ART[UNIT_ART[k]];
+    const lock=u.needG&&!hasG(p)?'needs Reyna Marites':`rank ${u.tier}`;
+    return `<div class="row ${ok?'':'locked'}" style="--tint:${u.school?SCHOOLS[u.school].color:'var(--line)'}">
+    <div class="uwrap">${a?`<img class="uthumb" src="${a}" alt="">`:`<div class="uthumb ph" style="--c:${u.school?SCHOOLS[u.school].color:'var(--gold)'}"><span>Art to follow</span></div>`}<div><h3>${u.name} <span class="count" style="font-size:1rem;color:var(--dim)">×${fmt(c)}</span></h3><div class="meta">Attack <b>${u.atk}</b> · Defense <b>${u.def}</b> · ${cost} · upkeep ${u.upG||u.upM} ${u.gold?'pesos':'load'}</div><div class="lore">${u.lore}</div></div></div>
+    <div class="side">${ok?`<div class="stepper"><input inputmode="numeric" aria-label="${u.name} to ${u.gold?'hire':'invite'}" data-rq="${k}" value="${UI.rq[k]||''}" placeholder="0" style="width:58px"></div><button class="btn small" data-hire="${k}">${u.gold?'Hire':'Invite'}</button>`:`<span class="tag">${lock}</span>`}</div></div>`;}).join('')}</div>
+  <p class="note" style="margin-top:12px">Leave the box empty to get as many as you can afford. If pesos or load run out, tropa leave.</p>`;
+}
+function doAwaken(){
+  const p=P();
+  if(G.bank<AWAKEN_TURNS)return toast(`Calling your Lodi takes ${AWAKEN_TURNS} turns.`);
+  if(p.mana<AWAKEN_COST)return toast(`Calling your Lodi takes ${fmt(AWAKEN_COST)} load.`);
+  awaken(p); runTurns(AWAKEN_TURNS); after(null);
+}
+function doAbility(){
+  const p=P(),ab=GUARDIANS[p.school].ab;
+  if(G.bank<1)return toast('No turns left.');
+  if(p.mana<ab.cost)return toast(`${ab.name} needs ${ab.cost} load.`);
+  if(ab.key==='sanct'&&p.rite)return toast('Bayanihan can’t be used while you sing.');
+  const go=t=>{const m=useAbility(p,t);if(!m)return toast('Your Lodi can’t do that right now.');runTurns(1);log(m,'magic');after(m);};
+  if(ab.target){ if(G.day<PROTECT)return toast(`Raids and chismis are banned until day ${PROTECT}.`); return targetPicker(`${ab.name} on whom?`,go); }
+  go(null);
+}
+function doHire(k){
+  const p=P(),u=UNITS[k];
+  if(G.bank<1)return toast('No turns left.');
+  const price=u.gold||u.mana, have=u.gold?p.gold:p.mana;
+  let q=parseInt(UI.rq[k],10); const max=Math.floor(have/price);
+  if(!q||q<0)q=max; q=Math.min(q,max);
+  if(q<=0)return toast(`Not enough ${u.gold?'pesos':'load'}.`);
+  if(u.gold)p.gold-=q*price; else p.mana-=q*price;
+  p.u[k]=(p.u[k]||0)+q; UI.rq[k]='';
+  runTurns(1);
+  const msg=`${u.gold?'Hired':'Invited'} ${q} ${u.name}${q>1?'s':''}.`;log(msg,'you');after(msg);
+}
+
+/* MAGIC */
+function ritePanel(p){
+  const m=Math.min(7,p.moons+1),o=OFFER[m];
+  const list=`<ol class="offers">${OFFER.slice(1).map((x,i)=>`<li class="${i<p.moons?'done':i===p.moons&&p.rite?'now':''}"><span>Song ${i+1}</span>${x.label}${x.t==='mana'&&isLeader(p)?' <small>(+10% fame tax)</small>':''}</li>`).join('')}</ol>`;
+  let body='';
+  if(p.tier<4) body=`<p class="note">Reach rank 4 of diskarte, then build a Videoke Stage in the Build tab.</p>`;
+  else if(!p.shrine) body=`<p class="note">${p.rite?'<b>Your Videoke Stage got wrecked!</b> Rebuild it in the Build tab to keep singing.':`Build a Videoke Stage in the Build tab (₱${fmt(SHRINE_COST)}) to begin.`}</p>`;
+  else if(!p.rite) body=`<p class="note">Seven songs, each needing ${MOON_TURNS} turns of singing (${CHANT_COST} load a turn) and a fee. Every rival will raid you while you sing, and each raid you lose makes the judges strike off a song.</p><button class="btn sch" data-ritual>Grab the mic</button>`;
+  else if(p.stand>0) body=`<p><b>Encore.</b> Survive ${p.stand} more turn${p.stand>1?'s':''} without losing a raid and you are Grand Champion.</p><button class="btn sch" data-hold>Hold the note ${Math.min(UI.count,p.stand)} turn${Math.min(UI.count,p.stand)>1?'s':''}</button>`;
+  else{
+    const ready=canOffer(p,m),full=p.chant>=MOON_TURNS;
+    body=`<div class="meter"><i style="width:${p.chant/MOON_TURNS*100}%"></i></div>
+    <p class="note">Song ${m}: singing <b>${p.chant}</b> / ${MOON_TURNS}${eclipseNow()?' · <b>Sweldo Week: double speed</b>':''}. Fee: <b>${o.label}</b>${o.t==='mana'?` (${fmt(offerCost(p,m))})`:''} · ${ready?'ready, paid automatically when the song ends':'<b>not ready yet</b>'}.</p>
+    ${full&&!ready?`<p class="note warnline">The song is done, but the fee isn’t ready. ${o.t==='mana'?'Pa-load for more load.':o.t==='beast'?'Invite a rank 3 star to your tropa.':o.t==='land'?'Expand for more lote.':o.t==='guardian'?'Call your Lodi, or wait for them to rest up.':''}</p>`:''}
+    <button class="btn sch" data-channel ${full&&!ready?'disabled':''}>Sing ${UI.count} turn${UI.count>1?'s':''}</button>`;
+  }
+  return `<div class="ritual"><h3>Videoke Showdown</h3>${moonRow(p)}${body}${list}</div>`;
+}
+function renderMagic(){
+  const p=P(), next=p.tier<4?TIER_RP[p.tier+1]:null, prev=TIER_RP[p.tier]||0;
+  const pct=next?Math.min(100,(p.rp-prev)/(next-prev)*100):100;
+  const keys=Object.keys(SPELLS).filter(k=>!SPELLS[k].hidden&&(SPELLS[k].school===null||SPELLS[k].school===p.school));
+  const ench=Object.entries(p.ench);
+  return `${eclipseBanner()}<div class="sect"><h2>Diskarte</h2><small>Rank ${p.tier} of 4</small></div>
+  <div class="meter"><i style="width:${pct}%"></i></div>
+  <p class="note">${next?`${Math.floor(p.rp)} of ${next} diskarte to reach rank ${p.tier+1}. Learn from the Barangay tab; barbershops speed it up.`:'All four ranks mastered. Certified madiskarte.'}</p>
+  ${ench.length?`<p class="note">Active: ${ench.map(([k,t])=>`<b style="color:var(--ink)">${SPELLS[k].name}</b> (${t})`).join(', ')}</p>`:''}
+  ${p.blind?`<p class="note warnline">You’re seen-zoned for ${p.blind} more turns: no FB Stalk.</p>`:''}
+  ${ritePanel(p)}
+  <div class="sect"><h2>Moves and chismis</h2><small>Each move takes 1 turn</small></div>
+  <div class="rows">${keys.map(k=>{const s=SPELLS[k],ok=spellKnown(p,k),c=hexCost(p,k);
+    return `<div class="row ${ok?'':'locked'}" style="--tint:${s.school?SCHOOLS[s.school].color:'var(--line)'}"><div><h3>${s.name}</h3><div class="meta">${s.desc} <b>${c}</b> load</div></div>
+    <div class="side">${ok?`<button class="btn small ${s.type==='hex'?'warn':''}" data-cast="${k}">${s.type==='hex'||s.type==='scry'?'Target':'Use'}</button>`:`<span class="tag">rank ${s.tier}</span>`}</div></div>`;}).join('')}</div>`;
+}
+function targetPicker(title,onPick,filter=()=>true){
+  const ts=G.rivals.filter(r=>r.alive&&hostile(P(),r)&&filter(r));
+  if(!ts.length)return toast('No valid targets.');
+  modal(title,`<div class="rows">${ts.map(r=>`<div class="row" style="--tint:${SCHOOLS[r.school].color}"><div><h3>${esc(r.name)}${r.rite?' <span class="tag hot">singing</span>':''}</h3><div class="meta">${SCHOOLS[r.school].name} · ${fmt(r.land)} lote · clout ${fmt(power(r))}${r.rite?` · ${r.moons}/7 songs`:''}</div></div><div class="side"><button class="btn small" data-pickt="${r.id}">Choose</button></div></div>`).join('')}</div>`,[{t:'Cancel',cls:'ghost'}]);
+  document.querySelectorAll('[data-pickt]').forEach(b=>b.onclick=()=>{closeModal();onPick(byId(b.dataset.pickt));});
+}
+function doCast(k){
+  const p=P(),s=SPELLS[k],c=hexCost(p,k);
+  if(G.bank<1)return toast('No turns left.');
+  if(p.mana<c)return toast(`${s.name} needs ${c} load.`);
+  if(s.type==='scry'){
+    if(p.blind)return toast(`You’re seen-zoned for ${p.blind} more turns.`);
+    return targetPicker('Stalk whose profile?',t=>{p.mana-=c;runTurns(1);
+      G.intel[t.id]={d:G.day,gold:Math.round(t.gold),mana:Math.round(t.mana),tier:t.tier,atk:Math.round(armyAtk(t)),def:Math.round(armyDef(t)),units:{...t.u},ench:Object.keys(t.ench),rit:t.rite?t.moons:null};
+      log(`You stalked ${t.name}’s profile all the way back to 2012. Very informative.`,'magic');UI.tab='war';after(`${t.name}’s profile is wide open.`);});
+  }
+  if(s.type==='hex'){
+    if(G.day<PROTECT)return toast(`Raids and chismis are banned until day ${PROTECT}.`);
+    return targetPicker(`Use ${s.name} on whom?`,t=>{
+      const r=castHex(p,t,k); runTurns(1);
+      const msg=r.ok?`${s.name} hit ${t.name}: ${r.fx.join(', ')||'little effect'}.`:`${t.name}’s blocks shrugged off your ${s.name}.`;
+      log(msg,'magic'); UI.kq.unshift({type:'curse',own:1,c:who(p),t:who(t),sp:k,ok:r.ok,fx:r.fx.join(', ')}); after(null);
+    });
+  }
+  const msg=castSelf(p,k); runTurns(1); log(msg,'magic'); after(msg); 
+}
+
+/* WAR */
+const RIVAL_ART={ember:'rival-tanod',tide:'rival-live-seller',verdant:'rival-angkan',gloam:'rival-marites',dawn:'rival-tsuper'};
+function rivalThumb(r){const a=ART[RIVAL_ART[r.school]];return a?`<img class="uthumb rival" src="${a}" alt="">`:`<div class="uthumb ph" style="--c:${SCHOOLS[r.school].color}"><span>Art to follow</span></div>`;}
+function renderWar(){
+  const p=P();
+  const wl=r=>{const x=wheel(p,r);return x>0?'<span class="tag ally">you counter them +20%</span>':wheel(r,p)>0?'<span class="tag hot">they counter you</span>':'';};
+  return `<div class="sect"><h2>Rival households</h2><small>${G.day<PROTECT?`Truce until day ${PROTECT}`:'Raids take 2 turns'}</small></div>
+  <p class="note">Counter wheel: Live Seller → Tanod → Angkan → Marites → Tsuper → Live Seller. Each crew hits 20% harder against the next.</p>
+  <div class="rows">${G.rivals.slice().sort((a,b)=>(b.moons-a.moons)||(power(b)-power(a))).map(r=>{const i=G.intel[r.id];
+   return `<div class="row ${r.alive?'':'locked'}" style="--tint:${SCHOOLS[r.school].color}">
+    <div class="uwrap">${rivalThumb(r)}<div><h3>${esc(r.name)}${r.ally?' <span class="tag ally">ally</span>':''}${r.rite?` <span class="tag hot">${r.stand?'encore':'singing'}</span>`:''}${!r.alive?' <span class="tag">evicted</span>':''} ${r.alive&&!r.ally?wl(r):''}</h3>
+    <div class="meta">${SCHOOLS[r.school].name} · <b>${fmt(r.land)}</b> lote · clout <b>${fmt(power(r))}</b>${r.g?` · Lodi lvl ${r.g.lvl}${r.g.wound?' (resting)':''}`:''}${r.shrine?' · videoke stage':''}</div>
+    ${r.rite||r.moons?`<div class="meta">${moonRow(r)} ${r.moons}/7 songs${r.stand?` · <b>${r.stand} turns to stop them</b>`:''}</div>`:''}
+    ${i?`<div class="meta">Stalked day ${i.d}: ₱${fmt(i.gold)}, ${fmt(i.mana)} load, rank ${i.tier}, attack ${fmt(i.atk)}, defense ${fmt(i.def)}${i.ench.length?`, protected by ${i.ench.map(k=>SPELLS[k].name).join(', ')}`:''}</div>`:''}</div></div>
+    <div class="side" style="flex-direction:column;align-items:stretch">${r.alive&&!r.ally?`<button class="btn small warn" data-attack="${r.id}">Raid</button>${r.rite?`<button class="btn small ghost" data-pots="${r.id}" title="1 turn, ₱50, 8% chance to knock off a song">Brownout</button>`:''}`:''}</div></div>`;}).join('')}</div>
+  <p class="note" style="margin-top:12px">Your raid power: ${fmt(armyAtk(p))} at full strength${gReady(p)?', Lodi included':''}. Brownout: flip a singer’s breaker for 1 turn and ₱50, with an 8% chance to knock a song off their score.</p>`;
+}
+function attackDialog(id){
+  const p=P(),t=byId(id);
+  if(G.day<PROTECT)return toast(`The barangay truce holds until day ${PROTECT}.`);
+  if(G.bank<2)return toast('A raid needs 2 turns.');
+  let f=.75, sendG=gReady(p);
+  const w=wheel(p,t);
+  const body=()=>`<p>Send part of your tropa against ${esc(t.name)}. Tropa you keep home still defend you.</p>
+   <div class="chips">${[.25,.5,.75,1].map(x=>`<button class="chip" data-frac="${x}" aria-pressed="${f===x}">${x*100}%</button>`).join('')}</div>
+   ${gReady(p)?`<div class="chips"><button class="chip" data-sendg aria-pressed="${sendG}">${sendG?'✓ ':''}Send ${esc(GUARDIANS[p.school].name)}</button></div><p class="note">If the raid fails, your Lodi needs ${G_WOUND} turns to rest.</p>`:''}
+   <p class="note">Raid power: <b style="color:var(--ink)">${fmt(armyAtk(p,f,sendG)*(1+w))}</b>${w>0?' (counter wheel +20%)':w<0?' (counter wheel −10%)':''}${G.intel[id]?` vs their last seen defense ${fmt(G.intel[id].def)}`:'. FB Stalk them first to see their defense.'}</p>
+   ${t.rite?'<p class="note"><b>They’re singing.</b> A win makes the judges strike off one of their songs.</p>':''}`;
+  modal(`Raid ${t.name}`,`<div id="atkBody">${body()}</div>`,[{t:'Cancel',cls:'ghost'},{t:'Raid',cls:'warn',fn:()=>{
+    const r=doBattle(p,t,f,sendG); runTurns(2);
+    const msg=r.win?`You raided ${t.name}: +${r.land} lote.`:`Your tropa got chased off by ${t.name}.`;
+    log(msg,'war'); UI.kq.unshift({type:'battle',own:1,b:r.rec}); after(null);
+  }}]);
+  const wire=()=>{document.querySelectorAll('[data-frac]').forEach(b=>b.onclick=()=>{f=+b.dataset.frac;$('#atkBody').innerHTML=body();wire();});
+    const g=document.querySelector('[data-sendg]');if(g)g.onclick=()=>{sendG=!sendG;$('#atkBody').innerHTML=body();wire();};};
+  wire();
+}
+function doPots(id){
+  const p=P(),t=byId(id);
+  if(G.bank<1)return toast('No turns left.');
+  if(p.gold<50)return toast('A Brownout needs ₱50.');
+  const ok=kalampag(p,t); if(ok){ensureStats();G.stats.brown=(G.stats.brown||0)+1;} runTurns(1);
+  const msg=ok?`Brownout! ${t.name}'s videoke died mid-song and the judges struck one off!`:`You flipped ${t.name}'s breaker, but they had a generator.`;
+  log(msg,'omen'); after(msg); 
+}
+/* LOG */
+function renderLog(){
+  const B=G.battles||[];
+  return `<div class="sect"><h2>Raid history</h2><small>Tap View for the full story</small></div>
+  ${B.length?`<div class="rows chron">${B.map((b,i)=>{const good=(b.a.p&&b.win)||(b.d.p&&!b.win);return `<div class="row" style="--tint:${good?'var(--ok)':'var(--danger)'}"><div><h3>${b.a.p?'Sugod kay '+esc(b.d.n):'Sugod ni '+esc(b.a.n)}</h3><div class="meta">Day ${b.day} · ${b.a.p?'you raided':'you defended'} · <b>${good?'won':'lost'}</b>${b.win?` · ${b.land} lote ${b.a.p?'taken':'lost'}`:''}</div></div><div class="side"><button class="btn small" data-replay="${i}">View</button></div></div>`;}).join('')}</div>`:`<p class="note">No raids yet. Every raid you make or face is recorded here.</p>`}
+  <div class="sect"><h2>Balita</h2><small>Newest first</small></div><ul class="log">${G.log.map(l=>`<li class="${l.k}"><time>Day ${l.d}</time>${esc(l.t)}</li>`).join('')}</ul>`;
+}
+
+/* ============ STORY MOMENTS ============ */
+function mix(h,t,w='#ffffff'){const p=x=>[1,3,5].map(i=>parseInt(x.slice(i,i+2),16));const a=p(h),b=p(w);return '#'+a.map((v,i)=>Math.round(v+(b[i]-v)*t).toString(16).padStart(2,'0')).join('');}
+const who=w=>({n:w.name,s:w.school,p:!!w.isPlayer});
+function riteNote(k){return k.w.p?'You grabbed the mic: seven songs, each with 6 turns of singing and a fee. Expect every rival to come for you.':`${esc(k.w.n)} is going for seven perfect 100s. Beat them in a raid to knock a song off their score, or flip their breaker (Brownout) from the Rivals tab. Nothing stops a videoke like a brownout.`;}
+function sceneAllowed(k){return k.type==='guardian'||k.type==='rite';}
+/* ============ BATTLE REPORT ============ */
+const uName=(k,n)=>UNITS[k]?UNITS[k].name:k;
+function listUnits(arr){if(!arr||!arr.length)return '';const p=arr.map(([k,n])=>`${fmt(n)} ${uName(k)}`);return p.length>1?p.slice(0,-1).join(', ')+' and '+p[p.length-1]:p[0];}
+function lossLine(m){if(!m)return '';const a=Object.entries(m).filter(([,n])=>n>0).sort((x,y)=>y[1]-x[1]).slice(0,3);return a.map(([k,n])=>`${fmt(n)} ${uName(k)}`).join(' · ');}
+const TIMES=['right after the teleserye','during a brownout','at the height of rush hour','while the rice was still cooking','in the middle of a fiesta','the day after sweldo'];
+function battleStory(b){
+  const youA=b.a.p,youD=b.d.p;
+  const atk=youA?'Your tropa':`${b.a.n}'s tropa`, def=youD?'your street':`${b.d.n}'s street`;
+  const when=TIMES[b.day%TIMES.length];
+  const S=[];
+  S.push(`${atk} ${b.win?'raided':'showed up at'} ${def} ${when}${b.fa&&b.fa.length?`, led by ${listUnits(b.fa)}`:''}.`);
+  if(b.gA) S.push(`${GUARDIANS[b.gA].name} walked in front like it was the fiesta parade, and nobody dared to laugh.`);
+  if(b.chasm) S.push(`Before anything happened, a mega sale lured away ${fmt(b.chasm)} of them.`);
+  const walls=b.kuta?`${fmt(b.kuta)} Gate${b.kuta>1?'s':''}`:'a flimsy yero fence';
+  S.push(`${youD?'Your':`${b.d.n}'s`} defenders held ${walls}${b.fd&&b.fd.length?` with ${listUnits(b.fd)}`:''}${b.gD?`, and ${GUARDIANS[b.gD].name} stood at the gate with arms crossed`:''}.`);
+  if(b.sig) S.push('Dummy Accounts slipped past the gate unseen and opened a gap in the defense.');
+  if(b.wh>0) S.push(`The attackers' crew had the upper hand against the ${SCHOOLS[b.d.s].name} (counter wheel +20%).`);
+  if(b.wh<0) S.push(`The ${SCHOOLS[b.d.s].name} saw it coming a mile away (counter wheel −10%).`);
+  const r=b.A/Math.max(1,b.D);
+  if(b.win) S.push(r>2?'The defense folded faster than a sachet of shampoo.':r>1.3?'After a lot of shouting, the defenders gave way.':'It was close: the gate held until the very last push.');
+  else S.push(r<.5?'The raid fell apart and the attackers ran home.':r<.85?'The defenders threw back wave after wave, plus a few tsinelas.':'The attackers got within one tsinelas of breaking through.');
+  return S.join(' ');
+}
+function reportArt(b){
+  const youA=b.a.p;
+  const pref=youA?(b.win?'battle-victory':'battle-repelled'):(b.win?'raid-lost':'raid-held');
+  if(ART[pref])return pref;
+  const mine=youA?b.gA:b.gD, theirs=youA?b.gD:b.gA;
+  if(mine&&ART[GUARDIANS[mine].art])return GUARDIANS[mine].art;
+  if(theirs&&ART[GUARDIANS[theirs].art])return GUARDIANS[theirs].art;
+  const top=b.fa&&b.fa[0]&&UNIT_ART[b.fa[0][0]];
+  if(top&&ART[top])return top;
+  return youA||!b.win?'tambay':'bg-barangay';
+}
+function battleReport(b){
+  const youA=b.a.p, good=(youA&&b.win)||(!youA&&!b.win);
+  const verdict=youA?(b.win?'Panalo!':'Chased off'):(b.win?'Raided':'Held!');
+  const title=youA?(b.win?`You raided ${b.d.n}`:`Chased off by ${b.d.n}`):(b.win?`${b.a.n} raided you`:`You held off ${b.a.n}`);
+  const ac=SCHOOLS[b.a.s].color, dc=b.a.s===b.d.s?'#8a7f8f':SCHOOLS[b.d.s].color, tot=Math.max(1,b.A+b.D), aw=Math.round(b.A/tot*100);
+  const chips=[];
+  if(b.land)chips.push([youA?'good':'bad',`${youA?'+':'−'}${fmt(b.land)} lote`]);
+  if(b.rit)chips.push([youA?'good':'bad','Song struck off']);
+  if(b.shrine)chips.push([youA?'good':'bad','Videoke Stage wrecked']);
+  if(b.chasm)chips.push([youA?'bad':'good',`Mega sale took ${fmt(b.chasm)}`]);
+  if(b.gw)chips.push([youA?'bad':'good',`${GUARDIANS[b.gA].name} hurt`]);
+  if(b.glvl)chips.push(['good',`${GUARDIANS[b.glvl].name} leveled up`]);
+  if(b.wh)chips.push(['info',`Counter wheel ${b.wh>0?'+20%':'−10%'}`]);
+  const art=reportArt(b);
+  return new Promise(res=>{
+    const el=document.createElement('div');el.className='splash';el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.setAttribute('aria-label',title);
+    el.innerHTML=`<div class="splash-card br" style="--c:${good?'var(--ok)':'var(--danger)'}">
+      <div class="splash-frame br-art">${ART[art]?`<img class="splash-art" src="${ART[art]}" alt="">`:''}<div class="br-day">Day ${b.day}</div><div class="br-verdict ${good?'good':'bad'}">${verdict}</div></div>
+      <div class="splash-body">
+        <h2>${esc(title)}</h2>
+        <div class="br-vs"><div><i style="background:${ac}"></i><b>${esc(b.a.p?'You':b.a.n)}</b><small>${SCHOOLS[b.a.s].name} · attack</small><span class="br-num" data-n="${b.A}">0</span></div>
+          <div class="br-x">vs</div>
+          <div class="r"><i style="background:${dc}"></i><b>${esc(b.d.p?'You':b.d.n)}</b><small>${SCHOOLS[b.d.s].name} · defense</small><span class="br-num" data-n="${b.D}">0</span></div></div>
+        <div class="br-bar" aria-hidden="true"><span style="background:${ac};--w:${aw}%"></span><span style="background:${dc};--w:${100-aw}%"></span></div>
+        <p class="br-story">${esc(battleStory(b))}</p>
+        ${(()=>{const q=raidQuote(b);return `<p class="br-quote">“${esc(q.t)}” <b>— ${esc(q.n)}, in the Barangay GC</b></p>`;})()}
+        <div class="br-loss"><div><span>Attackers lost</span><b>${fmt(b.aL)}</b><small>${lossLine(b.la)}</small></div><div><span>Defenders lost</span><b>${fmt(b.dL)}</b><small>${lossLine(b.ld)}</small></div></div>
+        ${chips.length?`<div class="br-chips">${chips.map(([c,t])=>`<span class="${c}">${esc(t)}</span>`).join('')}</div>`:''}
+        <button class="btn sch" type="button">Close</button>
+      </div></div>`;
+    document.body.appendChild(el);
+    const reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.querySelectorAll('.br-num').forEach(s=>{const n=+s.dataset.n;if(reduce){s.textContent=fmt(n);return;}const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/900);s.textContent=fmt(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step);};requestAnimationFrame(step);});
+    requestAnimationFrame(()=>el.querySelector('.br-bar').classList.add('on'));
+    const btn=el.querySelector('button');btn.onclick=()=>{el.remove();res();};btn.focus({preventScroll:true});
+  });
+}
+
+/* ============ THE RACE (moons tracker) ============ */
+function raceCard(){
+  const ws=allW().filter(w=>w.alive).sort((x,y)=>(y.moons*10+y.chant+(y.stand?5:0))-(x.moons*10+x.chant+(x.stand?5:0))||power(y)-power(x));
+  return `<div class="race"><div class="race-h"><h2>Ang Karera</h2><small>The race to seven perfect 100s</small></div>
+  ${ws.map(w=>{const st=w.stand?`<b class="hot">encore · ${w.stand}</b>`:w.rite?(w.shrine?`singing · song ${w.moons+1} ${w.chant}/${MOON_TURNS}`:'<b class="hot">stage wrecked</b>'):w.shrine?'stage built':`rank ${w.tier}`;
+   return `<div class="race-row${w.isPlayer?' me':''}"><i style="background:${SCHOOLS[w.school].color}"></i><span class="nm">${esc(w.isPlayer?'You':w.name)}</span>${moonRow(w)}<span class="st">${st}</span></div>`;}).join('')}</div>`;
+}
+
+/* ============ HAMON (quests) ============ */
+const QK={
+  land:{lbl:g=>`Hold ${fmt(g)} lote`,m:p=>p.land},
+  bld:{lbl:g=>`Own ${fmt(g)} buildings`,m:p=>built(p)},
+  atk:{lbl:g=>`Raise your raid power to ${fmt(g)}`,m:p=>armyAtk(p)},
+  wins:{lbl:g=>`Win ${g>1?'raids':'a raid'} (${g} total)`,m:p=>G.stats.wins},
+  curse:{lbl:g=>`Land chismis on a rival (${g} total)`,m:p=>G.stats.curses},
+  rp:{lbl:g=>`Gather ${fmt(g)} diskarte`,m:p=>p.rp},
+  pop:{lbl:g=>`Grow to ${fmt(g)} neighbors`,m:p=>p.pop},
+  awaken:{lbl:()=>'Call your Lodi',m:p=>p.g?1:0},
+  shrine:{lbl:()=>'Build a Videoke Stage',m:p=>p.shrine?1:0},
+  moon:{lbl:g=>`Score 100 on song ${g}`,m:p=>p.moons}
+};
+function newQuest(){
+  const p=P(),have=new Set((G.quests||[]).map(q=>q.k)),c=[];
+  const add=(k,goal)=>{if(!have.has(k))c.push({k,goal:Math.round(goal)});};
+  add('land',p.land+Math.max(20,p.land*.15)); add('bld',built(p)+10); add('atk',Math.max(armyAtk(p)*1.3,armyAtk(p)+200)); add('pop',p.pop*1.2);
+  if(G.day>=PROTECT) add('wins',G.stats.wins+1);
+  if(p.tier>=2) add('curse',G.stats.curses+1);
+  if(p.tier<4) add('rp',Math.min(TIER_RP[p.tier+1],p.rp+150));
+  if(p.tier>=3&&!p.g) add('awaken',1);
+  if(p.tier>=4&&!p.shrine) add('shrine',1);
+  if(p.rite&&p.moons<7) add('moon',p.moons+1);
+  const q=pick(c); const scale=1+G.day/250;
+  const r=pick([{gold:Math.round(250*scale)},{mana:Math.round(150*scale)},{rp:Math.round(60*scale)},{gold:Math.round(150*scale),mana:Math.round(80*scale)}]);
+  if(['awaken','shrine','moon','wins'].includes(q.k)){for(const k in r)r[k]*=2;}
+  return {...q,r};
+}
+function rewardText(r){return Object.entries(r).map(([k,v])=>k==='gold'?`+₱${fmt(v)}`:`+${fmt(v)} ${k==='rp'?'diskarte':'load'}`).join(', ');}
+function ensureQuests(){G.stats=G.stats||{wins:0,curses:0,explored:0,done:0};G.quests=G.quests||[];while(G.quests.length<3)G.quests.push(newQuest());}
+function checkQuests(){
+  if(!G||G.over)return [];ensureQuests();const p=P(),done=[];
+  G.quests=G.quests.map(q=>{if(QK[q.k].m(p)>=q.goal){for(const k in q.r)p[k]+=q.r[k];G.stats.done++;done.push(q);log(`Hamon complete: ${QK[q.k].lbl(q.goal)}. Reward: ${rewardText(q.r)}.`,'you');return null;}return q;}).filter(Boolean);
+  ensureQuests();return done;
+}
+function questCard(){
+  ensureQuests();const p=P();
+  return `<div class="quests"><div class="race-h"><h2>Mga Hamon</h2><small>Challenges · ${G.stats.done} done</small></div>${G.quests.map(q=>{const v=QK[q.k].m(p),pct=Math.max(0,Math.min(100,v/q.goal*100));return `<div class="q"><div class="q-t"><b>${esc(QK[q.k].lbl(q.goal))}</b><span>${rewardText(q.r)}</span></div><div class="meter"><i style="width:${pct}%"></i></div></div>`;}).join('')}</div>`;
+}
+
+/* ============ PANGITAIN (omen events with choices) ============ */
+const scl=()=>1+G.day/300;
+const OMENS=[
+ {id:'brownout',art:['ganap-brownout'],t:'Eight-hour brownout',x:'The power has been out since lunch. The whole street is fanning itself with old calendars, and the teleserye starts in an hour.',
+  c:[{l:'Rent a generator',d:()=>`−₱${fmt(150*scl())}, your house becomes the charging station`,f:p=>{p.gold-=150*scl();p.rp+=60*scl();return 'Half the street charges their phones at your place. You overhear a lot of useful diskarte (+diskarte).';}},
+     {risky:1,l:'Tiis lang',d:()=>'Free, but risky',f:p=>{if(rnd()<.55){const n=Math.round(p.pop*.1);p.pop-=n;return `It drags on until midnight. ${fmt(n)} neighbors give up and go sleep at the mall.`;}return 'The lights come back just before the teleserye. Everyone cheers.';}}]},
+ {id:'traffic',art:['ganap-traffic'],t:'Traffic sa kanto',x:'A stalled truck has turned the only road into a parking lot. Deliveries are stuck and the drivers are getting creative.',
+  c:[{risky:1,l:'Take the shortcut through the eskinita',d:()=>'Risky, 70% chance',f:p=>{if(rnd()<.7){const g=300*scl();p.gold+=g;return `The eskinita works. Your deliveries arrive first and sell out (+₱${fmt(g)}).`;}const g=100*scl();p.gold=Math.max(0,p.gold-g);return `A dead end. Also a very angry dog. The goods spoil in the heat (−₱${fmt(g)}).`;}},
+     {l:'Send the tambays to direct traffic',d:()=>'Lose some Tambay, gain lote',f:p=>{const n=Math.round((p.u.levy||0)*.06);p.u.levy-=n;const l=Math.round(10+p.land*.04);p.land+=l;return `Traffic flows again. ${fmt(n)} tambays got hired as traffic aides and never came back, but the grateful landowner hands you ${fmt(l)} lote.`;}}]},
+ {id:'balikbayan',art:['ganap-balikbayan'],t:'A balikbayan box arrives',x:'Your cousin abroad sent a box so heavy it took four tanods to lift. It is packed with chocolates, canned goods and a lot of tape.',
+  c:[{l:'Swap the goodies for load',d:()=>`−₱${fmt(400*scl())}, +${fmt(450*scl())} load`,f:p=>{if(p.gold<400*scl())return 'You don’t have enough pesos to cover the shipping. The box goes back to the warehouse.';p.gold-=400*scl();p.mana+=450*scl();return 'The whole street trades you prepaid cards for chocolates (+load).';}},
+     {l:'Sell it all online',d:()=>`−${fmt(400*scl())} load, +₱${fmt(550*scl())}`,f:p=>{if(p.mana<400*scl())return 'You don’t have enough load to post the listings. Maybe next time.';p.mana-=400*scl();p.gold+=550*scl();return 'Sold out in an hour (+pesos). Your cousin must never know.';}}]},
+ {id:'raffle',art:['ganap-raffle'],t:'The fiesta raffle',x:'Lola dreamt of six numbers last night. The fiesta raffle draws tonight, and she insists you buy tickets with those exact numbers.',
+  c:[{risky:1,l:'Trust Lola’s dream',d:()=>'60% chance of winning',f:p=>{if(rnd()<.6){const g=500*scl();p.gold+=g;return `Lola was right. She is always right. You win the rice cooker and the cash prize (+₱${fmt(g)}).`;}const n=Math.round(p.pop*.06);p.pop-=n;return `Not one number matches. You spent the night arguing about it, and ${fmt(n)} neighbors move away to get some sleep.`;}},
+     {l:'Politely ignore her',d:()=>`−${fmt(60*scl())} load`,f:p=>{p.mana=Math.max(0,p.mana-60*scl());return 'Lola sulks and hides the WiFi password for a day (−load).';}}]},
+ {id:'trivia',art:['ganap-trivia'],t:'Tito’s trivia night',x:'Tito Boy, three bottles in, challenges anyone at the reunion to a quiz on old basketball games. The prize is “wisdom.”',
+  c:[{risky:1,l:'Accept the challenge',d:()=>'70% chance of wisdom',f:p=>{if(rnd()<.7){const r=150*scl();p.rp+=r;updateTier(p);return `“Correct!” Tito slams the table and shares his life’s diskarte, at length (+${fmt(r)} diskarte).`;}const m=100*scl();p.mana=Math.max(0,p.mana-m);return `Wrong. Tito spends the rest of the night explaining why, and your phone dies from all the fact-checking (−${fmt(m)} load).`;}},
+     {l:'Hand him the pulutan instead',d:()=>`−₱${fmt(100*scl())}, +${fmt(120*scl())} load`,f:p=>{p.gold=Math.max(0,p.gold-100*scl());p.mana+=120*scl();return 'Tito forgets the quiz entirely and shares his WiFi password (+load).';}}]},
+ {id:'barkada',art:['tambay'],t:'A barkada looking for a boss',x:'Forty tambays and their kargador friends just lost their favorite corner to a new milk tea shop. They show up at your gate looking for a new hangout.',
+  c:[{l:'Take them in',d:()=>`−₱${fmt(300*scl())}, +${fmt(40*scl())} Tambay, +${fmt(12*scl())} Kargador`,f:p=>{if(p.gold<300*scl())return 'You can’t afford the merienda. They wander off to a rival’s corner.';p.gold-=300*scl();p.u.levy+=Math.round(40*scl());p.u.archer+=Math.round(12*scl());return 'They claim your corner as their own. Loyal, as long as the merienda keeps coming.';}},
+     {l:'Send them away',d:()=>'Nothing happens',f:()=>'They shuffle off toward a rival’s street.'}]},
+ {id:'storm',art:['ganap-bagyo'],t:'Signal No. 2',x:'The weather bureau raised Signal No. 2 and classes are already cancelled. The kids are thrilled. Nobody else is.',
+  c:[{l:'Tie down the roofs',d:()=>`−₱${fmt(250*scl())}, everyone safe`,f:p=>{p.gold=Math.max(0,p.gold-250*scl());return 'The bagyo passes. Every yero roof is still where it belongs.';}},
+     {risky:1,l:'Bahala na',d:()=>'50% chance of damage',f:p=>{if(rnd()<.5){const n=Math.round(p.pop*.08);p.pop-=n;let b=0;for(const k of ['farm','market','well']){if(p.b[k]>0){p.b[k]--;b++;}}return `The wind wins. ${fmt(n)} neighbors evacuate to their relatives and ${b} buildings lose their roofs.`;}return 'The bagyo veers away at the last minute. Bahala na wins again.';}}]},
+ {id:'handaan',art:['ganap-handaan'],t:'A neighbor’s handaan',x:'The family across the street is throwing a birthday handaan with enough lechon to feed three barangays.',
+  c:[{l:'Bring a potluck dish',d:()=>`−${fmt(80*scl())} load, neighbors +8%`,f:p=>{p.mana=Math.max(0,p.mana-80*scl());const n=Math.round(p.pop*.08);p.pop+=n;return `Your pancit is a hit. ${fmt(n)} new neighbors decide your street is the place to be.`;}},
+     {risky:1,l:'Bring a stack of tupperware',d:()=>`+₱${fmt(200*scl())}, but people may talk`,f:p=>{p.gold+=200*scl();if(rnd()<.35){const m=Math.round(p.mana*.12);p.mana-=m;return `You eat for a week (+pesos), but someone saw the tupperware and posted about it (−${fmt(m)} load on damage control).`;}return 'You eat for a week (+pesos). Nobody noticed. Probably.';}}]},
+ {id:'rooster',art:['ganap-rooster'],t:'The 3 AM rooster',x:'Your neighbor’s rooster has decided that 3 AM is morning. Every morning. The whole street is starting to look like zombies.',
+  c:[{l:'Buy everyone earplugs',d:()=>`−₱${fmt(120*scl())}, the street sleeps`,f:p=>{p.gold=Math.max(0,p.gold-120*scl());const n=Math.round(p.pop*.04);p.pop+=n;return `Peace at last. Word spreads that your street actually sleeps, and ${fmt(n)} new neighbors move in.`;}},
+     {risky:1,l:'Wake up early and hustle',d:()=>'Embrace the 3 AM life',f:p=>{if(rnd()<.6){const g=250*scl(),r=60*scl();p.gold+=g;p.rp+=r;updateTier(p);return `You sell pandesal before anyone else is awake (+₱${fmt(g)}, +${fmt(r)} diskarte). The rooster is now your business partner.`;}const m=90*scl();p.mana=Math.max(0,p.mana-m);return `You fall asleep at noon with your phone on and it plays videos all afternoon (−${fmt(m)} load).`;}}]},
+ {id:'tupperware',art:['ganap-tupperware'],t:'“Nasaan ang tupperware ko?”',x:'Nanay has noticed that her favorite tupperware has been missing since the last handaan. She will not rest. Neither will you.',
+  c:[{l:'Search every kitchen on the street',d:()=>`−${fmt(80*scl())} load on calls, maybe a bonus`,f:p=>{p.mana=Math.max(0,p.mana-80*scl());const g=Math.round(180*scl());p.gold+=g;return `You find it, plus eleven other lost tupperware. The owners pay a finder’s fee (+₱${fmt(g)}).`;}},
+     {risky:1,l:'Buy a new one and pretend',d:()=>'Cheap, but Nanay always knows',f:p=>{p.gold=Math.max(0,p.gold-40*scl());if(rnd()<.5)return 'Nanay doesn’t notice. You got away with it. This time.';const n=Math.round(p.pop*.05);p.pop-=n;return `Nanay notices instantly (“Wrong shade of blue”). The lecture is so loud that ${fmt(n)} neighbors move away.`;}}]},
+ {id:'viral',art:['ganap-viral'],t:'You went viral',x:'Someone posted a video of you singing off-key at the last fiesta. It has 2 million views. Your face is a meme now.',
+  c:[{l:'Lean in and start a fan page',d:()=>`−${fmt(100*scl())} load, more fans`,f:p=>{p.mana=Math.max(0,p.mana-100*scl());const n=Math.round(p.pop*.1);p.pop+=n;return `You post a duet with your own meme. ${fmt(n)} fans move to your street just to see you in person.`;}},
+     {risky:1,l:'Deny everything',d:()=>'“That’s my twin.”',f:p=>{if(rnd()<.5){const g=200*scl();p.gold+=g;return `A brand pays you to stay mysterious (+₱${fmt(g)}). Nobody believes the twin story, but it’s working.`;}const m=Math.round(p.mana*.1);p.mana-=m;return `Your actual cousin posts your baby photos as proof. Damage control eats ${fmt(m)} load.`;}}]},
+ {id:'utang',art:['ganap-utang'],t:'The utang collector',x:'A neighbor shows up with a notebook from 2019. Apparently you owe ₱200 for a bag of chicharon. With interest.',
+  c:[{l:'Pay it, with interest',d:()=>`−₱${fmt(200*scl())}, your name is clean`,f:p=>{p.gold=Math.max(0,p.gold-200*scl());p.rp+=40*scl();return 'Paid in full. The neighbor tells everyone you’re trustworthy, and they start sharing their diskarte with you (+diskarte).';}},
+     {risky:1,l:'“Bukas na lang.”',d:()=>'The classic. 60% they forget',f:p=>{if(rnd()<.6)return 'They forget. Again. The notebook goes back in the drawer. For now.';const g=400*scl();p.gold=Math.max(0,p.gold-g);return `They did not forget. They brought a tanod and a calculator (−₱${fmt(g)}).`;}}]},
+ {id:'envoy',art:[],t:'A gift basket from a rival',x:'',rival:true,
+  c:[{l:'Accept the truce',d:()=>`−₱${fmt(200*scl())}, they won’t raid you for a while`,f:(p,r)=>{p.gold=Math.max(0,p.gold-200*scl());r.cd+=30;return `${r.name} accepts your return gift. Their tropa stay home and watch teleserye for now.`;}},
+     {risky:1,l:'Leave them on seen',d:()=>'Your street gets hyped (+5% raid power for 20 turns)',f:(p,r)=>{p.ench.rally=20;r.cd=0;return `Your street cheers, but ${r.name} is furious and starts planning a raid.`;}}]}
+];
+
+function omenArt(o,r){const keys=o.rival&&r?[RIVAL_ART[r.school],'victory']:o.art;return keys.find(k=>ART[k])||'bg-barangay';}
+function maybeOmen(){
+  if(!G||G.over||G.day<15)return null;
+  G.nextOmen=G.nextOmen||G.day+15+Math.floor(rnd()*15);
+  if(G.day<G.nextOmen)return null;
+  G.nextOmen=G.day+25+Math.floor(rnd()*20);
+  const recent=G.omens||[];let pool=OMENS.filter(o=>!recent.includes(o.id));if(!pool.length)pool=OMENS;
+  const o=pick(pool);G.omens=[o.id,...recent].slice(0,4);
+  return o;
+}
+function showOmen(o){
+  const p=P(),r=o.rival?pick(G.rivals.filter(x=>x.alive&&!x.ally&&hostile(p,x))):null;
+  if(o.rival&&!r)return Promise.resolve();
+  const text=o.rival?`${esc(r.name)} of the ${SCHOOLS[r.school].name} sends a gift basket and a warning. “Our tropa are getting restless,” says the cousin who delivered it. “Maybe we should just be friends?”`:esc(o.x);
+  return new Promise(res=>{
+    const el=document.createElement('div');el.className='splash';el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.setAttribute('aria-label',o.t);
+    el.innerHTML=`<div class="splash-card" style="--c:var(--gold)">${ART[omenArt(o,r)]?`<div class="splash-frame"><img class="splash-art" src="${ART[omenArt(o,r)]}" alt=""></div>`:''}<div class="splash-body"><div class="splash-kicker">Anong ganap?</div><h2>${esc(o.t)}</h2><p>${text}</p><div class="omen-c">${o.c.map((c,i)=>`<button class="btn ${i?'ghost':'sch'}" data-oc="${i}"><b>${esc(c.l)}</b><small>${esc(c.d())}</small></button>`).join('')}</div></div></div>`;
+    document.body.appendChild(el);
+    el.querySelectorAll('[data-oc]').forEach(b=>b.onclick=()=>{const c=o.c[+b.dataset.oc];const out=c.f(p,r);if(c.risky){ensureStats();G.stats.yolo=(G.stats.yolo||0)+1;}for(const k of ['gold','mana','pop'])p[k]=Math.max(0,Math.round(p[k]));log(`${o.t}: ${out}`,'omen');save();
+      el.querySelector('.splash-body').innerHTML=`<div class="splash-kicker">Anong ganap?</div><h2>${esc(o.t)}</h2><p>${esc(out)}</p><button class="btn sch" type="button">Ituloy ▸</button>`;
+      el.querySelector('.splash-body button').onclick=()=>{el.remove();render();res();};el.querySelector('.splash-body button').focus({preventScroll:true});});
+    el.querySelector('[data-oc]').focus({preventScroll:true});
+  });
+}
+
+/* ============ RESOURCE FLOATERS ============ */
+function snapRes(){const p=P();return [p.gold,p.mana,p.land,p.pop,power(p)];}
+function floatDeltas(prev){
+  if(!prev||!G||G.over)return;const now=snapRes(),cells=document.querySelectorAll('.res > div');
+  now.forEach((v,i)=>{const d=Math.round(v-prev[i]);if(!d||!cells[i])return;if(Math.abs(d)<1)return;
+    const f=document.createElement('span');f.className='floater '+(d>0?'up':'down');f.textContent=(d>0?'+':'−')+fmt(Math.abs(d));f.setAttribute('aria-hidden','true');cells[i].appendChild(f);setTimeout(()=>f.remove(),1700);});
+}
+function showScene(o){return new Promise(res=>{
+  const el=document.createElement('div');el.className='splash';el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.setAttribute('aria-label',o.title);
+  el.innerHTML=`<div class="splash-card" style="--c:${o.c||'#d3ab52'}"><div class="splash-frame"><img class="splash-art${o.tall?' tall':''}" src="${ART[o.art]}" alt=""></div><div class="splash-body">${o.kicker?`<div class="splash-kicker">${esc(o.kicker)}</div>`:''}<h2>${esc(o.title)}</h2>${o.sub?`<div class="splash-title">${esc(o.sub)}</div>`:''}<p>${o.text}</p><button class="btn sch" type="button">${esc(o.btn||'Ituloy ▸')}</button></div></div>`;
+  document.body.appendChild(el);const b=el.querySelector('button');b.onclick=()=>{el.remove();res();};b.focus({preventScroll:true});});}
+function showSplash(k){
+  const gd=GUARDIANS[k.s];
+  return new Promise(res=>{
+    const el=document.createElement('div');el.className='splash';el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.setAttribute('aria-label',gd.name);
+    el.innerHTML=`<div class="splash-card" style="--c:${SCHOOLS[k.s].color}"><div class="splash-frame">${guardianArt(k.s,'splash-art')}</div><div class="splash-body"><div class="splash-kicker">${k.mine?'Dumating na si Lodi!':`Dumating na ang Lodi ni ${esc(k.n)}`}</div><h2>${esc(gd.name)}</h2><div class="splash-title">${esc(gd.title)} · Lodi of the ${SCHOOLS[k.s].name}</div><p>${k.mine?`${gd.passive} Ability: <b>${gd.ab.name}</b>. ${gd.ab.desc}`:`${esc(k.n)} has called in the Lodi of the ${SCHOOLS[k.s].name}. Expect them to hit harder.`}</p><button class="btn sch" type="button">Ituloy ▸</button></div></div>`;
+    document.body.appendChild(el);
+    const close=()=>{el.remove();res();};
+    const b=el.querySelector('button');b.onclick=close;b.focus({preventScroll:true});
+  });
+}
+function playKx(k,force){
+  if(k.type==='guardian') return showSplash(k);
+  if(k.type==='score') return scoreCard(k);
+  if(k.type==='rite'&&ART['rite-videoke']) return showScene({art:'rite-videoke',c:SCHOOLS[k.w.s].color,kicker:k.w.p?'Hawak na ang mic':'Babala!',title:k.w.p?'The mic is yours':`${k.w.n} grabbed the mic`,text:riteNote(k),btn:'Ituloy ▸'});
+  if(k.type==='battle'&&(k.own||force)) return battleReport(k.b);
+  if(k.type==='curse'&&k.own){const sp=SPELLS[k.sp];return modal(k.ok?'The chismis lands':'The chismis flops',`<p>${k.ok?`<b>${sp.name}</b> hit ${esc(k.t.n)}: ${esc(k.fx||'little effect')}.`:`${esc(k.t.n)}’s blocks shrugged off your ${sp.name}.`}</p>`);}
+  return Promise.resolve();
+}
+
+/* ============ BARANGAY GC (rival group chat) ============ */
+const GC_LINES={
+  ember:['Reminder: curfew is 10 PM. Yes, including you, {you}.','Nakita ko yung motor mo, {you}. Walang helmet. Noted.','Ronda tonight. Bring your own flashlight, sira yung sa barangay.','Who keeps parking in front of the outpost? I have the plate number.','Sino nagtapon ng balat ng saging sa kanto? May CCTV tayo. (Wala talaga, pero kunwari.)'],
+  tide:['MINE MINE MINE! Ay sorry wrong GC.','Live tayo mamayang 8 PM! Free shipping sa unang 10!','To the buyer who reserved 30 items and vanished: I know where you live.','Pasabuy sa palengke, sino may gusto?','Restock na ang tsinelas! Perfect pang-raid. Charot.'],
+  verdant:['Reunion sa Sunday! Bring tupperware. Bawal umuwi nang walang baon.','Sino may extra electric fan? 23 kami dito sa bahay.','Tito Boy fell asleep on the videoke again.','Kumain na ba kayo? Lahat kayo? Pati si {you}?','New baby sa family! Pang-pito na this year.'],
+  gloam:['Hindi sa pagiging chismosa pero... may nakita ako kagabi.','Seen 9:42 PM. Hindi nag-reply. Interesting.','Sino yung bagong lipat? Mukhang mayaman. Or baon sa utang.','Screenshot ko na ’to ha. For documentation.','{you}, bakit ka gising ng 3 AM? Just asking. For a friend.'],
+  dawn:['Barya lang po sa umaga.','Kasya pa! Kasya pa! Usog lang po nang konti.','Sino yung umupo sa harap tapos di nag-abot ng bayad? Nakita ko kayo.','Traffic sa kanto. Again. Bahala na.','Bagong sticker sa jeep: “God knows Hudas not pay.” Para sa inyo ’yan.']
+};
+const GC_EV={
+  theyWon:['Thanks sa lote, {you}! Ganda ng view dito.','GG {you}. Next time, i-lock ang gate.','Ang lambot pala ng gate mo, {you}. Hahaha.','Pasensya na, kapitbahay. Business lang. Walang personalan.'],
+  theyLost:['Hindi kami natalo. Nag-retreat lang. Strategic.','Ang daming tsinelas sa street ni {you}. Grabe ang depensa.','Okay fine. Uuwi muna kami. Pero babalik kami.'],
+  youWon:['{you} raided us. Hindi ako galit. Pero galit ako.','Blocked. Unblocked. Blocked ulit. {you}, alam mo na ginawa mo.','Okay lang. Karma is real, {you}.','Ibalik mo yung lote namin, {you}. May sentimental value ’yon.'],
+  youLost:['Hahaha, si {you} umuwi nang luhaan.','Salamat sa free exercise, {you}!','Raid daw. Parang fiesta lang pala. Thanks sa pagbisita, {you}!'],
+  sing:['Practice lang ’to, guys. Track 1!','Ihanda ang inyong tenga. Sisimulan ko na.','Pakihina ang TV ninyo. Kakanta ako.'],
+  youSing:['Ayan na si {you}. Pakihina naman.','May nag-videoke na naman. Sino pa ba, edi si {you}.','Earplugs available sa sari-sari ko. ₱5 each. Thanks, {you}.'],
+  evicted:['Lipat na kami. Salamat sa lahat. Except kay {you}.','For rent na ang bahay namin. DM for inquiries.'],
+  sweldo:['SWELDO NA! Shopping muna bago bills.','Sweldo week! Bayad muna ng utang... joke lang.','Libre ko kayo ng fishball. Isa lang each.']
+};
+function gcFill(t){return t.replace(/\{you\}/g,P().name);}
+function gcPost(w,t){if(!G||!w)return;G.gc=G.gc||[];G.gc.unshift({d:G.day,n:w.name,s:w.school,t:gcFill(t)});if(G.gc.length>30)G.gc.length=30;}
+function gcRival(){const l=G.rivals.filter(r=>r.alive);return l.length?pick(l):null;}
+function gcTick(){if(rnd()<.025){const r=gcRival();if(r)gcPost(r,pick(GC_LINES[r.school]));}}
+function gcRaid(a,d,win){
+  if(a.isPlayer){gcPost(d,pick(win?GC_EV.youWon:GC_EV.youLost));ensureStats();if(!win)G.stats.losses=(G.stats.losses||0)+1;}
+  else if(d.isPlayer){gcPost(a,pick(win?GC_EV.theyWon:GC_EV.theyLost));ensureStats();if(win)G.stats.losses=(G.stats.losses||0)+1;}
+}
+function gcCard(){
+  const m=(G.gc||[]).slice(0,4);
+  return `<div class="gc"><div class="race-h"><h2>Barangay GC</h2><small>${m.length?'Latest from your neighbors':'Quiet... for now'}</small></div>
+  ${m.length?m.map(x=>`<div class="gc-m"><i style="background:${SCHOOLS[x.s].color}"></i><div><b>${esc(x.n)}</b> <time>Day ${x.d}</time><p>${esc(x.t)}</p></div></div>`).join(''):'<p class="note">Your neighbors will start posting soon. They always do.</p>'}</div>`;
+}
+
+/* ============ VIDEOKE SCORECARD ============ */
+const SONGS=['Ikaw ang Load ng Buhay Ko','Piso WiFi ng Puso','Seen Mo Lang Ako','Lutang sa Traffic','Bahala Na (Power Ballad)','Ang Tupperware ni Nanay','Utang Mo, Puso Ko','Sweldo, Bakit Ka Umalis?','Brownout sa Puso Ko','Kasya Pa (Jeepney Love Song)'];
+const JUDGES=['Lola cried. Twice.','The neighbors stopped complaining. For once.','Even the asong kalye howled along.','The machine said 100. The audience said “isa pa!”','Kap Tikas filed zero noise complaints. Historic.','Three titas fainted. Two of them were faking.','The tricycle drivers honked in approval.','Someone’s rooster crowed along. It was on key.'];
+function scoreCard(k){
+  return new Promise(res=>{
+    const el=document.createElement('div');el.className='splash';el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.setAttribute('aria-label','Perfect score');
+    const song=SONGS[(k.n*3+G.day)%SONGS.length],judge=pick(JUDGES);
+    el.innerHTML=`<div class="splash-card" style="--c:var(--school)"><div class="splash-body vk">
+      <div class="splash-kicker">Song ${k.n} of 7</div>
+      <div class="vk-score" data-n="100">0</div>
+      <h2>“${esc(song)}”</h2>
+      <p>${esc(judge)}</p>
+      <div class="vk-mics" aria-label="${k.n} of 7 perfect songs">${[1,2,3,4,5,6,7].map(i=>`<span class="${i<=k.n?'on':''}">🎤</span>`).join('')}</div>
+      <button class="btn sch" type="button">${k.n>=6?'Isa pa! ▸':'Next song ▸'}</button></div></div>`;
+    document.body.appendChild(el);
+    const s=el.querySelector('.vk-score'),reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce)s.textContent='100';else{const t0=performance.now();const step=t=>{const q=Math.min(1,(t-t0)/1100);s.textContent=Math.round(100*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(step);};requestAnimationFrame(step);}
+    const b=el.querySelector('button');b.onclick=()=>{el.remove();res();};b.focus({preventScroll:true});
+  });
+}
+
+/* ============ BADGES ============ */
+const BADGES=[
+  {k:'first100',n:'Perfect 100',d:'Scored your first perfect song.',m:p=>p.moons>=1},
+  {k:'lodi',n:'May Lodi Na',d:'Called your Lodi.',m:p=>!!p.g},
+  {k:'marites',n:'Certified Marites',d:'Landed 5 chismis on rivals.',m:()=>G.stats.curses>=5},
+  {k:'brown',n:'Brownout King',d:'Knocked a song off a rival with a Brownout.',m:()=>(G.stats.brown||0)>=1},
+  {k:'yolo',n:'Bahala Na Master',d:'Picked the risky choice 3 times.',m:()=>(G.stats.yolo||0)>=3},
+  {k:'sintunado',n:'Pambansang Sintunado',d:'Had 3 songs struck off by the judges.',m:()=>(G.stats.struck||0)>=3},
+  {k:'raider',n:'Hari ng Kanto',d:'Won 10 raids.',m:()=>G.stats.wins>=10},
+  {k:'talo',n:'Hindi Ako Natalo... Medyo',d:'Lost 5 raids. It happens.',m:()=>(G.stats.losses||0)>=5},
+  {k:'tambay',n:'Tambay Overlord',d:'Had 500 Tambay at once.',m:p=>(p.u.levy||0)>=500},
+  {k:'mogul',n:'Real Estate Mogul',d:'Held 1,000 lote.',m:p=>p.land>=1000},
+  {k:'crowd',n:'Kapitbahay ng Taon',d:'Grew to 10,000 neighbors.',m:p=>p.pop>=10000},
+  {k:'day500',n:'Sweldo Survivor',d:'Made it to day 500 without getting evicted.',m:()=>G.day>=500},
+  {k:'hamon',n:'Palaban',d:'Finished 10 Hamon challenges.',m:()=>G.stats.done>=10}
+];
+function checkBadges(){
+  if(!G||G.over)return [];ensureStats();G.badges=G.badges||[];const p=P(),out=[];
+  for(const b of BADGES){if(!G.badges.includes(b.k)&&b.m(p)){G.badges.push(b.k);out.push(b);log(`Badge unlocked: ${b.n}.`,'you');}}
+  return out;
+}
+function badgeList(){const have=G.badges||[];return `<ul class="badges">${BADGES.map(b=>`<li class="${have.includes(b.k)?'on':''}"><b>${have.includes(b.k)?'🏅':'🔒'} ${esc(b.n)}</b><span>${esc(b.d)}</span></li>`).join('')}</ul>`;}
+
+/* ============ RAID TAUNTS ============ */
+function raidQuote(b){
+  const youA=b.a.p,rv=youA?b.d:b.a;
+  const pool=youA?(b.win?GC_EV.youWon:GC_EV.youLost):(b.win?GC_EV.theyWon:GC_EV.theyLost);
+  return {n:rv.n,t:gcFill(pool[b.day%pool.length])};
+}
+
+/* bindings & flow */
+async function after(msg){
+  const prev=UI.snap;
+  const qd=checkQuests(); const nb=checkBadges();
+  save(); render(); floatDeltas(prev);
+  const own=UI.kq.splice(0);
+  const items=G.pending.splice(0);
+  if(G.over&&!G.overShown){G.overShown=true;}
+  save();
+  const q=[...own]; let n=0;
+  for(const it of items){ if(it.kx&&n<3&&sceneAllowed(it.kx)){q.push(it.kx);it.shown=true;n++;} }
+  for(const k of q) await playKx(k);
+  if(G.over){render();return;}
+  const rest=[...nb.map(b=>({k:'you',t:`🏅 Badge unlocked: ${b.n}. ${b.d}`})),...qd.map(x=>({k:'you',t:`Hamon complete: ${QK[x.k].lbl(x.goal)}. Reward: ${rewardText(x.r)}.`})),...items.filter(i=>!i.shown)];
+  if(rest.length) await modal(nb.length&&rest.length===nb.length?'Badge unlocked!':qd.length&&rest.length===qd.length?'Hamon complete!':'While you worked',`<ul class="log">${rest.map(i=>`<li class="${i.k}">${esc(i.t)}</li>`).join('')}</ul>`);
+  else if(msg) toast(msg);
+  const om=maybeOmen(); if(om){save(); await showOmen(om);}
+  UI.snap=snapRes();
+}
+function bindGame(){
+  document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{UI.tab=b.dataset.tab;render();$('#main').scrollTop=0;});
+  $('#menuBtn').onclick=menu;
+  document.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{UI.count=+b.dataset.count;render();});
+  document.querySelectorAll('[data-do]').forEach(b=>b.onclick=()=>doActivity(b.dataset.do));
+  document.querySelectorAll('[data-bq]').forEach(b=>b.onclick=()=>{const k=b.dataset.bq;UI.bq[k]=Math.max(0,(UI.bq[k]||0)+ +b.dataset.d);render();});
+  document.querySelectorAll('[data-bqi]').forEach(i=>i.onchange=()=>{UI.bq[i.dataset.bqi]=Math.max(0,parseInt(i.value,10)||0);render();});
+  if($('#bGo'))$('#bGo').onclick=doBuild;
+  if($('#bFill'))$('#bFill').onclick=fillLand;
+  document.querySelectorAll('[data-rq]').forEach(i=>i.oninput=()=>UI.rq[i.dataset.rq]=i.value);
+  document.querySelectorAll('[data-hire]').forEach(b=>b.onclick=()=>doHire(b.dataset.hire));
+  document.querySelectorAll('[data-cast]').forEach(b=>b.onclick=()=>doCast(b.dataset.cast));
+  document.querySelectorAll('[data-attack]').forEach(b=>b.onclick=()=>attackDialog(b.dataset.attack));
+  document.querySelectorAll('[data-replay]').forEach(b=>b.onclick=()=>playKx({type:'battle',b:G.battles[+b.dataset.replay]},true));
+  const rb=document.querySelector('[data-ritual]');
+  if(rb)rb.onclick=()=>{const p=P();if(G.bank<1)return toast('No turns left.');
+    modal('Grab the mic?','<p>Every rival will hear it and come raid you. Each raid you lose while singing makes the judges strike off a song.</p>',[{t:'Not yet',cls:'ghost'},{t:'Sing!',cls:'sch',fn:()=>{beginRitual(p);runTurns(1);after('The first song has started.');}}]);};
+  const cb=document.querySelector('[data-channel]');
+  if(cb)cb.onclick=()=>{if(G.bank<1)return toast('No turns left.');const p=P();const m0=p.moons;
+    const used=runTurns(Math.min(UI.count,G.bank),()=>{if(p.stand>0||!p.rite)return false;if(chant(p)===false)return false;});
+    if(!used)return toast(p.chant>=MOON_TURNS?'The fee isn’t ready yet.':`Singing needs ${CHANT_COST} load a turn.`);
+    log(`You sang your heart out for ${used} turn${used>1?'s':''}.`,'omen');
+    after(p.moons>m0?`Perfect 100 on song ${p.moons}!`:p.stand?'The encore begins!':`Song ${p.moons+1}: ${p.chant}/${MOON_TURNS} sung.`);};
+  const hb=document.querySelector('[data-hold]');
+  if(hb)hb.onclick=()=>{if(G.bank<1)return toast('No turns left.');const p=P();const used=runTurns(Math.min(UI.count,G.bank,p.stand));log(`You held the note for ${used} turn${used>1?'s':''}.`,'omen');after(p.stand?`${p.stand} turns of the encore remain.`:null);};
+  if($('#shrineBtn'))$('#shrineBtn').onclick=()=>{const p=P();if(G.bank<1)return toast('No turns left.');if(p.gold<SHRINE_COST)return toast(`The Videoke Stage costs ₱${fmt(SHRINE_COST)}.`);if(freeLand(p)<1)return toast('You need 1 free lote.');buildShrine(p);runTurns(1);after('The Videoke Stage is up.');};
+  if($('#awakenBtn'))$('#awakenBtn').onclick=doAwaken;
+  if($('#abilBtn'))$('#abilBtn').onclick=doAbility;
+  document.querySelectorAll('[data-pots]').forEach(b=>b.onclick=()=>doPots(b.dataset.pots));
+}
+function menu(){
+  modal('Menu',`<p><b>How to play.</b> Turns are your lifeblood: they trickle in over time (${MODES[G.mode].note.toLowerCase()}) and every action spends them. Rivals take one action for every turn you spend.</p>
+  <p><b>The Videoke Showdown.</b> Reach rank 4 of diskarte, build a Videoke Stage, and grab the mic. Each of the seven songs needs ${MOON_TURNS} turns of singing plus a fee. Every raid you lose while singing makes the judges strike off a song. Sweldo Week comes every 100 days and doubles your singing.</p>
+  <p><b>Your Lodi.</b> At rank 3 you can call your crew’s Lodi (Tropa tab). They fight beside your tropa, get more legendary with every win, and have a special move.</p>
+  <p><b>Counter wheel.</b> Live Seller → Tanod → Angkan → Marites → Tsuper → Live Seller. Each crew hits 20% harder against the next.</p>
+  <p>Win by scoring seven perfect 100s, by getting every hostile rival evicted (below ${FALL_LAND} lote), or by having the most perfect songs on day ${SEASON}.</p>
+  <p><b>Badges.</b> ${(G.badges||[]).length} of ${BADGES.length} earned.</p>${badgeList()}
+  <p class="note">Mark’s Bahala Na! · A game by Mark</p>
+  <p class="note">${MODES[G.mode].name} pace · ${DIFFS[G.diff].name} rivals · ${G.variant==='covenant'?'Kumpare':'Solo'}</p>`,
+  [{t:'Move out',cls:'warn',fn:()=>modal('Move out?','<p>Your save will be erased and you start over.</p>',[{t:'Keep playing',cls:'ghost'},{t:'Erase and restart',cls:'warn',fn:()=>{wipe();G=null;render();}}])},{t:'Close'}]);
+}
+function updateBank(){
+  if(!G||G.over)return;
+  const before=G.bank; refreshBank();
+  const n=$('#bankN'),t=$('#bankT'); if(!n)return;
+  n.textContent=G.bank;
+  const m=MODES[G.mode];
+  if(G.bank>=m.cap)t.textContent='turns (full)';
+  else{const s=Math.ceil((m.rate-(Date.now()-G.lastTick))/1000);t.textContent=`turns · +1 in ${s>=60?Math.ceil(s/60)+'m':s+'s'}`;}
+  if(G.bank!==before)save();
+}
+function refreshBank(){
+  const m=MODES[G.mode],now=Date.now();
+  if(G.bank>=m.cap){G.lastTick=now;return;}
+  const n=Math.floor((now-G.lastTick)/m.rate);
+  if(n>0){G.bank=Math.min(m.cap,G.bank+n);G.lastTick+=n*m.rate;if(G.bank>=m.cap)G.lastTick=now;}
+}
+setInterval(updateBank,1000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&G&&!G.over){refreshBank();render();}});
+
+G=load(); if(G){refreshBank();G.battles=G.battles||[];}
+render();
+</script>
+</body>
+</html>
